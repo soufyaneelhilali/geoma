@@ -1,0 +1,100 @@
+<div id="login-v2" layout="row" layout-align="start">
+    <div id="login-v2-intro" flex hide show-gt-sm>
+        <div class="logo md-accent-bg icon-google-earth">
+        </div>
+        <div class="title" translate="LOGIN_V2.INTRO_TITLE">
+            Bienvenue a GEOMA!
+        </div>
+        <div class="description" translate="LOGIN_V2.INTRO_DESCRIPTION">
+            La platforme qui vous offres un espace de travaille SIG.
+        </div>
+    </div>
+
+    <div id="login-v2-form-wrapper" class="flex-scrollable md-whiteframe-8dp" ms-scroll>
+        <div id="login-v2-form">
+            <div class="logo md-accent-bg icon-google-earth" hide-gt-sm>
+            </div>
+
+            <div class="title" translate="LOGIN_V2.TITLE">Connectez-vous à votre compte
+</div>
+            <div class="description" translate="LOGIN_V2.DESCRIPTION"></div>
+            <form name="loginForm" ng-submit="submit(vm)" ng-controller="LoginV2Controller" novalidate>
+                <md-input-container class="md-block" md-no-float>
+                    <input name="email" ng-model="vm.user.email" placeholder="Email"
+                           translate translate-attr-placeholder="LOGIN_V2.EMAIL"
+                            required>
+                    <div ng-messages="loginForm.email.$error" role="alert" multiple>
+                        <div ng-message="required">
+                            <span translate="LOGIN_V2.ERRORS.EMAIL_REQUIRED">Un Login ou une adresse e-mail est requis</span>
+                        </div>
+                        <div ng-message="pattern">
+                            <span translate="LOGIN_V2.ERRORS.EMAIL_MUST_VALID">Le courrier électronique doit être une adresse e-mail valide</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="password" name="password" ng-model="vm.user.password" placeholder="Password"
+                           translate translate-attr-placeholder="LOGIN_V2.PASSWORD"
+                           required>
+                    <div ng-messages="loginForm.password.$error" role="alert">
+                        <div ng-message="required">
+                            <span translate="LOGIN_V2.ERRORS.PASSWORD_REQUIRED">Le champ du mot de passe est requis</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <div class="remember-forgot-password" layout="row" layout-sm="column"
+                     layout-align="space-between center">
+                    <md-checkbox class="remember-me" ng-model="vm.user.remember" aria-label="Remember Me">
+                        <span translate="LOGIN_V2.REMEMBER_ME">Se souvenir de moi</span>
+                    </md-checkbox>
+
+                    <a ui-sref="app.pages_auth_forgot-password" class="forgot-password md-accent-color"
+                       translate="LOGIN_V2.FORGOT_PASSWORD">Mot de passe oublié?</a>
+                </div>
+
+
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                  <md-progress-circular ng-disabled="!vm.activated" md-mode="indeterminate"></md-progress-circular>
+                </div>
+
+
+                <md-button type="submit" class="md-raised md-accent submit-button" aria-label="LOG IN"
+                           ng-disabled="loginForm.$invalid || loginForm.$pristine"
+                           translate="LOGIN_V2.LOG_IN" translate-attr-aria-label="LOGIN_V2.LOG_IN">
+                    S'IDENTIFIER
+                </md-button>
+            </form>
+
+            <div class="separator">
+                <span class="text" translate="LOGIN_V2.OR">OU</span>
+            </div>
+
+            <div layout="column" layout-align="start center">
+                <md-button class="md-raised google">
+                    <div layout="row" layout-align="center center">
+                        <span>
+                            <md-icon md-font-icon="icon-google-plus" class="s16"></md-icon>
+                            <span translate="LOGIN_V2.WITH_GOOGLE">Connectez-vous avec Google</span>
+                        </span>
+                    </div>
+                </md-button>
+
+                <md-button class="md-raised facebook">
+                    <div layout="row" layout-align="center center">
+                        <span>
+                            <md-icon md-font-icon="icon-facebook" class="s16"></md-icon>
+                            <span translate="LOGIN_V2.WITH_FACEBOOK">Connectez-vous avec Facebook</span>
+                        </span>
+                    </div>
+                </md-button>
+            </div>
+
+            <div class="register" layout="row" layout-sm="column" layout-align="center center">
+                <span class="text" translate="LOGIN_V2.DONT_HAVE_ACCOUNT">Vous n'avez pas de compte?</span>
+                <a class="link" ui-sref="app.pages_auth_register-v2" translate="LOGIN_V2.CREATE_ACCOUNT">Créer un comptet</a>
+            </div>
+        </div>
+    </div>
+</div>

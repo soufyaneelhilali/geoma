@@ -1,0 +1,80 @@
+<!-- TODO LIST ITEMS -->
+<div class="todo-items" ng-sortable="vm.sortableOptions" ng-model="vm.tasks" ng-class="{'sortable': vm.taskOrder === ''}">
+    <div class="todo-item" md-ink-ripple layout="row" layout-align="start center"
+         ng-click="vm.openTaskDialog($event, task)"
+         ng-repeat="layer in vm.map.layers | orderBy : 'wms.options.zIndex':true track by layer.id "
+         ng-class="{'starred': task.starred, 'selected': task.selected, 'completed': task.completed}">
+
+        <div class="handle" ng-click="vm.preventDefault($event)">
+            <md-icon md-font-icon="icon-drag-vertical" class="icon"></md-icon>
+        </div>
+        <md-checkbox class="no-label" ng-checked="layer.visible"
+                     ng-click="vm.toggleCompleted(layer, $event)"
+                     aria-label="{{task.completed ? 'Not completed' : 'Completed'}}">
+        </md-checkbox>
+
+        <div layout="row" layout-align="start center" flex>
+
+            <div class="info" flex>
+                <div class="title">
+                    {{layer.name}}
+                </div>
+
+                <div class="notes">
+                    {{layer.description}}
+                </div>
+
+                <div class="tags" layout="row" layout-align="start center" layout-wrap>
+                    <div class="tag" layout="row" layout-align="start center">
+
+                        <div class="tag-color" ng-style="{'background-color': tag.color}"></div>
+
+                        <div class="tag-label">{{layer.user.firstname}}</div>
+
+                    </div>
+                </div>
+
+                <div layout="row">
+                  <div flex="20" layout layout-align="center center" ng-init="opacity = layer.wms.options.opacity*100">
+                  </div>
+                  <md-slider  ng-model="opacity" ng-change="vm.bindOpacity(layer, opacity)" flex class="md-primary" md-discrete  step="10" min="0" max="100" aria-label="rating">
+                  </md-slider>
+                </div>
+
+            </div>
+
+
+            <div class="buttons" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-alert-circle" class="is-important red-600-fg"
+                         ng-if="task.important"></md-icon>
+
+                <md-icon md-font-icon="icon-star" class="is-starred amber-600-fg"
+                         ng-if="task.starred"></md-icon>
+
+                <md-menu>
+                    <md-button class="md-icon-button" aria-label="More" translate
+                               translate-attr-aria-label="TODO.MORE">
+                        <md-icon md-font-icon="icon-dots-vertical" ng-click="$mdOpenMenu($event)"></md-icon>
+                    </md-button>
+
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                            <md-button ng-click="vm.deletelayer($event,layer)" aria-label="delete layers">
+                                <md-icon ng-class="'red-600-fg'"
+                                         md-font-icon="icon-delete" class="s18"></md-icon>
+                                    <span > Supprimer</span>
+                                        </span>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </div>
+
+            </div>
+
+
+
+    </div>
+
+</div>
+<!-- / TODO LIST ITEMS -->

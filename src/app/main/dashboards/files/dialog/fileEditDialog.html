@@ -1,0 +1,67 @@
+<md-dialog aria-label="Prévisualisation" width="100px">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools" >
+        <h2>{{ops}} la Couche : {{files.name}}?</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="operation on file" ng-click="answer('Close')">
+              <md-icon md-font-icon="icon-close"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <div class="content" layout="column">
+       <div layout="column" layout-gt-xs="row" class="ml-30 mt-20" flex>
+              <md-input-container flex="100" flex-gt-xs="50">
+                  <input type="text" name="firstname" ng-model="files.name"
+                         placeholder="Nom de Couche"
+                         required>
+                  <div ng-messages="files.name.$error"
+                       role="alert">
+                      <div ng-message="required">
+                          <span>Nom requis.</span>
+                      </div>
+                  </div>
+              </md-input-container>
+              <md-input-container flex="100" flex-gt-xs="50">
+                  <input type="text" name="description" ng-model="files.description"
+                         placeholder="déscription"
+                         required>
+                  <div ng-messages="files.description.$error"
+                       role="alert">
+                      <div ng-message="required">
+                          <span>déscription requis.</span>
+                      </div>
+                  </div>
+              </md-input-container>
+          </div>
+          <div class="ml-80 mt-20"><h3>META-DATA</h3></div>
+          <div class="scrollable mt-20" ms-scroll>
+                <div class="ml-80" >
+                <div ng-repeat="attr in files.attributs" >
+                    <md-input-container flex="100" flex-gt-xs="50" >
+                        <input type="text" name="firstname" ng-model="attr.value"
+                               placeholder="{{attr.key}}"
+                               required>
+                        <div ng-messages="attr.value.$error"
+                             role="alert">
+                            <div ng-message="required">
+                                <span> {{attr.key}} requis.</span>
+                            </div>
+                        </div>
+                    </md-input-container>
+                  </div>
+                  </div></div>
+            </div>
+    <!-- / CONTENT -->
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-style="{color:'#E91E63'}" ng-click="answer('confirme')" >
+       Confirmer
+      </md-button>
+      <md-button ng-click="answer('Close')">
+        Annuler
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

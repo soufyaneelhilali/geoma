@@ -1,0 +1,405 @@
+<div id="maps" class="page-layout simple right-sidenav" layout="row">
+
+    <!-- CENTER -->
+    <div class="center" flex ms-scroll>
+    <!-- HEADER -->
+        <div class="header-content md-accent-bg" layout="row" layout-align="space-between" layout-wrap flex>
+        
+            <!-- / BOARD SELECTION BUTTON -->
+
+            <!-- BOARD NAME -->
+            <div class="header-board-name" layout="row" layout-align="center center" flex-order="2" flex-order-xs="1"
+                 flex-xs="100">
+            </div>
+            <!-- / BOARD NAME -->
+
+            <!-- TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" flex-order="3">
+
+                <!-- CALENDAR BUTTON -->
+                <md-button class="md-icon-button"
+                           ui-sref="app.calendar"
+                           ng-hide="'app.scrumboard.boards.board.calendar' | isState"
+                           aria-label="Calendar" translate translate-attr-aria-label="SB.CALENDAR">
+                    <md-icon md-font-icon="icon-calendar"></md-icon>
+                    <md-tooltip><span>Calendrier</span></md-tooltip>
+                </md-button>
+                <!-- / CALENDAR BUTTON app.calendar Calendrier-->
+
+                <!-- BOARD BUTTON -->
+                <md-button class="md-icon-button"
+                           ui-sref="app.map_create"
+                           aria-label="Board">
+                    <md-icon md-font-icon="icon-map"></md-icon>
+                    <md-tooltip>Nouvelle Carte</md-tooltip>
+                </md-button>
+                <!-- / BOARD BUTTON -->
+
+                <!-- FILTERS SIDENAV BUTTON -->
+                <md-button class="md-icon-button"
+                           ng-click="vm.toggleSidenav('filters-sidenav')"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-filter-variant"></md-icon>
+                    <md-tooltip><span>Filter des Cartes</span></md-tooltip>
+                </md-button>
+                <!-- / FILTERS SIDENAV BUTTON -->
+            </div>
+            <!-- / TOOLBAR -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT -->
+        <div class="content" exec-on-scroll-to-bottom="ctrl.handleScrollToBottom">
+
+            <md-tabs md-dynamic-height>
+
+            <md-tab label="Tous Les Cartes">
+                    <!-- WIDGET GROUP -->
+                    <div class="widget-group" layout="row" flex="100" layout-wrap>
+
+                        
+                        <!-- WIDGET 2 -->
+                        <ms-widget flippable="true" ng-repeat="map in vm.allmaps" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                            <!-- Front -->
+                            <ms-widget-front class="white-bg" id = "map.id">
+                                <div class="pl-16 pr-8 pv-16 h-40" layout="row" layout-align="space-between center">
+                                    <div class="h3">Theme : {{map.theme.name}}</div>
+
+                                    <md-menu>
+                                        <md-button class="md-icon-button" ng-click="$mdOpenMenu()"
+                                                   aria-label="more">
+                                            <md-icon md-font-icon="icon-format-list-bulleted"></md-icon>
+                                        </md-button>
+
+                                        <md-menu-content width="2">
+                                            <md-menu-item>
+                                                <md-button id = "map.id" ng-click="flipWidget();" aria-label="Flip widget">
+                                                    Details
+                                                </md-button>
+                                            </md-menu-item>
+                                            <md-menu-item>
+                                                <md-button ng-click="refreshWidget()" aria-label="Refresh widget">
+                                                    Actualiser
+                                                </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+
+                                </div>
+                                 <md-divider></md-divider>
+                                <div class="pt-0 pb-5" layout="column" layout-align="center center">
+
+                                <div class="media ml-16 pt-0 pb-5">
+                                    <img class="image" ng-src="assets/images/Themes/{{map.theme.name}}.png" alt="Carte">
+                                </div>
+
+                                    <div class="h3 secondary-text font-weight-500">{{map.name}}</div>
+                                </div>
+
+                                <div class="p-5 grey-50-bg border-top" layout="row" layout-align="start center">
+                                    <md-button class="md-icon-button" ng-click="$mdOpenMenu()"
+                                        aria-label="more">
+                                        <md-icon md-font-icon="icon-map" ng-style="{color:'#64B5F6'}"></md-icon>
+                                                <md-tooltip md-direction="top">Aperçu</md-tooltip>
+                                    </md-button>
+
+                                    <md-button class="md-icon-button" ng-click="vm.goeditor(map.id)"
+                                        aria-label="more">
+                                        <md-tooltip md-direction="top">Voire dans l'éditeur</md-tooltip>
+                                        <md-icon md-font-icon="icon-launch" ng-style="{color:'#e57373'}"></md-icon>
+                                    </md-button>
+
+                                        <span class="h4 pl-10 secondary-text text-truncate">
+                                         <md-icon md-font-icon="icon-calendar-clock" ng-style="{color:'#81C784'}">
+                                        </md-icon> {{map.created_at}}
+                                        </span>
+
+                                </div>
+                                <md-divider></md-divider>
+                                <div class="p-5 grey-02-bg" layout="row" layout-align="start center">
+                                        <span class="h4 secondary-text text-truncate">
+                                        <md-icon md-font-icon="icon-account">
+                                        </md-icon> {{map.user.firstname +",  "+ map.user.lastname}}
+                                        </span>
+                                        <span class="h4 ml-8"></span>
+                                </div>
+                            </ms-widget-front>
+                            <!-- / Front -->
+
+                            <!-- Back -->
+                            <ms-widget-back class="p-16 white-bg">
+
+                                <div class="flip-to-front">
+                                    <md-button class="md-icon-button" ng-click="flipWidget()"
+                                               aria-label="Flip widget">
+                                        <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                                    </md-button>
+                                </div>
+                                    <md-tabs md-dynamic-height>
+                                    <md-tab label="Couches" >
+                                    <div>
+                                        <div class="p-5 grey-02-bg" ng-repeat="layer in map.layers" layout="row" layout-align="start center" >
+
+                                            <span class="h4 secondary-text text-truncate">
+                                                <md-icon md-font-icon="icon-layers">
+                                                </md-icon> {{layer.name +",  "+ layer.type}}
+                                                <md-divider></md-divider>
+                                            </span>
+                                            <span class="h4 ml-8"></span>
+                                        </div>
+                                    </div>
+
+                                    </md-tab>
+            
+                            <md-tab label="Meta-DATA">
+                                <div class="p-5 grey-02-bg" ng-repeat="Attribut in map.attributs" layout="row" layout-align="start center">
+
+                                        <span class="h4 secondary-text text-truncate">
+                                        <md-icon md-font-icon="icon-playlist-minus">
+                                        </md-icon> {{Attribut.key +" : "+ Attribut.value}}
+                                        <md-divider></md-divider>
+                                        </span>
+                                        <span class="h4 ml-8"></span>
+                                 
+                                </div>
+                                </md-tab>
+                            </md-tabs>
+                            </ms-widget-back>
+                            <!-- / Back -->
+
+                        </ms-widget>
+                        <!-- / WIDGET 2 -->
+                    </div>
+                    <!-- / WIDGET GROUP -->
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular ng-disabled="!vm.load_activated" md-mode="indeterminate"></md-progress-circular>
+                            </div>
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-button class="md-primary md-raised center" ng-click="load_more()" aria-label="load more">
+                            <md-tooltip md-direction="top">Charger plus ...</md-tooltip>
+                            <md-icon md-font-icon="icon-reload md-hue-10"></md-icon>
+                            </md-button>
+                            </div>
+                </md-tab>
+                <!-- Rechercher -->
+                <md-tab label="Rechercher">
+
+                <ms-search-bar on-search="vm.search(query)" on-result-click="vm.searchResultClick(item)"
+                                           debounce="300"></ms-search-bar>
+  <!-- WIDGET GROUP -->
+                    <div class="widget-group" layout="row" flex="100" layout-wrap>
+
+                        
+                        <!-- WIDGET 2 -->
+                        <ms-widget flippable="true" ng-repeat="map in vm.searchmaps" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                            <!-- Front -->
+                            <ms-widget-front class="white-bg" id = "map.id">
+                                <div class="pl-16 pr-8 pv-16 h-40" layout="row" layout-align="space-between center">
+                                    <div class="h3">Theme : {{map.theme.name}}</div>
+
+                                    <md-menu>
+                                        <md-button class="md-icon-button" ng-click="$mdOpenMenu()"
+                                                   aria-label="more">
+                                            <md-icon md-font-icon="icon-format-list-bulleted"></md-icon>
+                                        </md-button>
+
+                                        <md-menu-content width="2">
+                                            <md-menu-item>
+                                                <md-button id = "map.id" ng-click="flipWidget();" aria-label="Flip widget">
+                                                    Details
+                                                </md-button>
+                                            </md-menu-item>
+                                            <md-menu-item>
+                                                <md-button ng-click="refreshWidget()" aria-label="Refresh widget">
+                                                    Actualiser
+                                                </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+
+                                </div>
+                                 <md-divider></md-divider>
+                                <div class="pt-0 pb-5" layout="column" layout-align="center center">
+
+                                <div class="media ml-16 pt-0 pb-5">
+                                    <img class="image" ng-src="assets/images/Themes/{{map.theme.name}}.PNG" alt="Carte">
+                                </div>
+
+                                    <div class="h3 secondary-text font-weight-500">{{map.name}}</div>
+                                </div>
+
+                                <div class="p-5 grey-50-bg border-top" layout="row" layout-align="start center">
+                                    <md-button class="md-icon-button" ng-click="$mdOpenMenu()"
+                                        aria-label="more">
+                                        <md-icon md-font-icon="icon-map" ng-style="{color:'#64B5F6'}"></md-icon>
+                                                <md-tooltip md-direction="top">Aperçu</md-tooltip>
+                                    </md-button>
+
+                                    <md-button class="md-icon-button" ng-click="vm.goeditor(map.id)"
+                                        aria-label="more">
+                                        <md-tooltip md-direction="top">Voire dans l'éditeur</md-tooltip>
+                                        <md-icon md-font-icon="icon-launch" ng-style="{color:'#e57373'}"></md-icon>
+                                    </md-button>
+
+                                        <span class="h4 pl-10 secondary-text text-truncate">
+                                         <md-icon md-font-icon="icon-calendar-clock" ng-style="{color:'#81C784'}">
+                                        </md-icon> {{map.created_at}}
+                                        </span>
+
+                                </div>
+                                <md-divider></md-divider>
+                                <div class="p-5 grey-02-bg" layout="row" layout-align="start center">
+                                        <span class="h4 secondary-text text-truncate">
+                                        <md-icon md-font-icon="icon-account">
+                                        </md-icon> {{map.user.firstname +",  "+ map.user.lastname}}
+                                        </span>
+                                        <span class="h4 ml-8"></span>
+                                </div>
+                            </ms-widget-front>
+                            <!-- / Front -->
+
+                            <!-- Back -->
+                            <ms-widget-back class="p-16 white-bg">
+
+                                <div class="flip-to-front">
+                                    <md-button class="md-icon-button" ng-click="flipWidget()"
+                                               aria-label="Flip widget">
+                                        <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                                    </md-button>
+                                </div>
+                                    <md-tabs md-dynamic-height>
+                                    <md-tab label="Couches" class="scrollable" ms-scroll>
+                                    <div class="tab-content">
+                                        <div class="p-5 grey-02-bg" ng-repeat="layer in map.layers" layout="row" layout-align="start center" >
+                                            <span class="h4 secondary-text text-truncate">
+                                                <md-icon md-font-icon="icon-layers" >
+                                                </md-icon> {{layer.name +",  "+ layer.type}}
+                                                <md-divider></md-divider>
+                                            </span>
+                                            <span class="h4 ml-8"></span>
+                                        </div>
+                                    </div>
+                                    </md-tab>
+            
+                            <md-tab label="Meta-DATA">
+                                <div class="p-5 grey-02-bg" ng-repeat="Attribut in map.attributes" layout="row" layout-align="start center">
+
+                                        <span class="h4 secondary-text text-truncate">
+                                        <md-icon md-font-icon="icon-layers">
+                                        </md-icon> {{Attribut.key +" : "+ Attribut.value}}
+                                        <md-divider></md-divider>
+                                        </span>
+                                        <span class="h4 ml-8"></span>
+                                 
+                                </div>
+                                </md-tab>
+                            </md-tabs>
+                            </ms-widget-back>
+                            <!-- / Back -->
+
+                        </ms-widget>
+                        <!-- / WIDGET 2 -->
+                    </div>
+                    <!-- / WIDGET GROUP -->
+
+
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular ng-disabled="!vm.load_activated" md-mode="indeterminate"></md-progress-circular>
+                            </div>
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-button class="md-primary md-raised center" ng-click="load_more()" aria-label="load more">
+                            <md-tooltip md-direction="top">Charger plus ...</md-tooltip>
+                            <md-icon md-font-icon="icon-reload md-hue-10"></md-icon>
+                            </md-button>
+                            </div>
+                </md-tab>
+                <!--/ Rechercher -->
+                
+            </md-tabs>
+
+        </div>
+        <!-- / CONTENT -->
+
+
+    </div>
+    <!-- / CENTER -->
+
+
+
+    <!-- FILTERS SIDENAV -->
+
+
+    <md-sidenav class="filters-sidenav md-sidenav-right" md-component-id="filters-sidenav">
+                <!-- SIDENAV HEADER -->
+<md-toolbar class="md-accent" ng-class="'md-accent-bg'">
+    <div class="md-toolbar-tools">
+        <span flex class="menu-title">Filter par Thèmatique</span>
+        <md-button ng-if="true" ng-click="vm.clarfilter()" class="md-icon-button"
+                   aria-label="clear filters">
+            <md-icon md-font-icon="icon-filter-remove"></md-icon>
+            <md-tooltip>
+                <span >Annuler le filtre</span>
+            </md-tooltip>
+        </md-button>
+    </div>
+</md-toolbar>
+<!-- / SIDENAV HEADER -->
+
+<!-- CONTENT -->
+<md-content class="" ms-scroll>
+    <md-list>
+        <md-list-item class="label"
+                      ng-click="vm.filterbyuser(1)">
+            <md-icon md-font-icon="icon-map" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>Toutes les Cartes</p>
+            <i class="icon-check s16" ng-if="vm.selected_user==0 "></i>
+        </md-list-item>
+        <md-list-item class="label"
+                      ng-click="vm.filterbyuser(0)">
+            <md-icon md-font-icon="icon-people" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>Mes Cartes</p>
+            <i class="icon-check s16" ng-if="vm.selected_user==userid"></i>
+        </md-list-item>
+
+        <md-divider></md-divider>
+            <!-- FILTER BY Date -->
+        <md-subheader class="md-no-sticky">Filter par date de publication</md-subheader>
+
+        <md-list-item class="label" ng-click="vm.filterbydate('desc')">
+            <md-icon md-font-icon="icon-sort" ng-class="md-accent-fg" class="label-icon"></md-icon>
+            <p>récents </p>
+            <i class="icon-check s16" ng-if="vm.filterbydatevalue == 'desc'"></i>
+        </md-list-item>
+
+        <md-list-item class="label" ng-click="vm.filterbydate('asc')">
+            <md-icon md-font-icon="icon-sort" ng-class="" class="label-icon"></md-icon>
+            <p>anciens</p>
+            <i class="icon-check s16" ng-if="vm.filterbydatevalue == 'asc'"></i>
+        </md-list-item>
+        <!-- / FILTER BY Date -->
+
+        <md-divider></md-divider>
+
+        <!-- FILTER BY THEME -->
+        <md-subheader class="md-no-sticky">Filter par thèmatique</md-subheader>
+        <md-list-item class="label" ng-repeat="theme in vm.themes"
+                      ng-click="vm.filterbytheme(theme.id)">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>{{theme.name}}</p>
+            <i class="icon-check s16" ng-if="theme.id == vm.selected_theme"></i>
+        </md-list-item>
+        <!-- / FILTER BY THEME -->
+
+
+
+
+    </md-list>
+</md-content>
+<!-- / CONTENT -->
+    </md-sidenav>
+    <!-- / FILTERS SIDENAV -->
+
+</div>

@@ -1,0 +1,71 @@
+<div id="files" class="page-layout simple right-sidenav" layout="row">
+
+    <!-- CENTER -->
+    <div class="center" flex ms-scroll>
+
+    <!-- HEADER -->
+        <div class="header-content md-accent-bg" layout="row" layout-align="space-between" layout-wrap flex>
+            <!-- / BOARD SELECTION BUTTON -->
+
+            <!-- BOARD NAME -->
+            <div class="header-board-name" layout="row" layout-align="center center" flex-order="2" flex-order-xs="1"
+                 flex-xs="100">
+            </div>
+            <!-- / BOARD NAME -->
+
+            <!-- TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" flex-order="3">
+            <div class="toolbar" layout="row" layout-align="space-between center" flex-order="3">
+                <md-button class="md-icon-button"
+                           ng-click="vm.toggleSidenav('devices-sidenav')"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-format-list-bulleted"></md-icon>
+                    <md-tooltip><span>Selectionner une enquête</span></md-tooltip>
+                </md-button>
+            </div>
+
+            </div>
+            <!-- / TOOLBAR -->
+
+        </div>
+        <!-- / HEADER -->
+    <!-- CONTENT -->
+    <md-content class="content" flex layout="column" ui-view="scrumboardContent">
+             <leaflet defaults="defaults" controls="controls" width="100%" height="600px" ></leaflet>
+    </md-content>
+    <!-- / CONTENT -->
+    <md-sidenav class="filters-sidenav md-sidenav-right" md-component-id="devices-sidenav" ms-scroll>
+            <!-- SIDENAV HEADER -->
+        <md-toolbar class="md-accent" ng-class="'md-accent-bg'">
+            <div class="md-toolbar-tools">
+                <span flex class="menu-title">Liste des Enquêtes</span>
+                <md-button ng-if="true" ng-click="vm.toggleSidenav('devices-sidenav')" class="md-icon-button"
+                           aria-label="close layers">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                    <md-tooltip>
+                        <span >Férmer</span>
+                    </md-tooltip>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <!-- / SIDENAV HEADER -->
+
+        <!-- CONTENT -->
+
+            <!-- Todo list pane -->
+        <md-list-item class="label" ng-repeat="inv in vm.invs"
+                      ng-click="vm.showinmap(inv.id)">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>{{inv.name}}</p>
+            <i class="icon-check s16" ng-if="inv.id == vm.selected_ivs"></i>
+        </md-list-item>
+
+            <!-- / Todo list pane -->
+    </md-sidenav>
+    <!-- / FILTERS SIDENAV -->
+
+    </div>
+    <!-- / CENTER -->
+
+
+</div>

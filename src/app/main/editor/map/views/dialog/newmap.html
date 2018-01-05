@@ -1,0 +1,80 @@
+<div id="create" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+        <div layout="row">
+
+            <!-- FORM WIZARD -->
+ <!-- FORM WIZARD -->
+            <ms-form-wizard flex>
+                <md-tabs md-dynamic-height md-selected="msWizard.selectedIndex" md-center-tabs="true">
+                    <md-tab>
+                        <md-tab-label>
+                            <span class="ms-form-wizard-step-label">
+                                <span class="ms-form-wizard-step-number md-accent-bg"
+                                      ng-if="wizardStep1.$invalid">1</span>
+                                <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep1.$valid">
+                                    <i class="icon-check s16"></i>
+                                </span>
+                                <span class="ms-form-wizard-step-text">Information sur la Carte</span>
+                            </span>
+                        </md-tab-label>
+
+                        <md-tab-body>
+                            <form name="wizardStep1" class="md-inline-form" ms-form-wizard-form novalidate>
+                                <div layout="column" layout-gt-xs="row" flex layout-align="space-between center">
+                                <md-input-container flex="50" flex-gt-xs="50">
+                                    <input type="text" name="name" ng-model="newmap.name" placeholder="Nom de la carte" required>
+                                    <div ng-messages="wizardStep1.name.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ nom de la Carte est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-gt-xs="50">
+                                    <input type="text" name="description" ng-model="newmap.description" placeholder="description" required>
+                                    <div ng-messages="wizardStep1.description.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ description de la Carte est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div layout="column" layout-gt-xs="row" layout-align="space-between">
+
+
+                                <md-input-container  flex="100" flex-gt-xs="100">
+                                    <md-select ng-model="newmap.theme_id"  placeholder="Thématique" class="md-no-underline select_bar" required>
+                                        <md-option ng-repeat="theme in themes | orderBy:'name'" value="{{theme.id}}"> {{theme.name}}</md-option>
+                                        <md-tooltip md-direction="top">Veuillez choisir une Thématique</md-tooltip>
+                                    </md-select>
+                                </md-input-container>
+
+                            </div>
+                            </form>
+                        </md-tab-body>
+                    </md-tab>
+
+                </md-tabs>
+
+                <div class="navigation" flex layout="row" layout-align="center center">
+                    <md-button class="md-raised md-warn" ng-click="sendForm(newmap);"
+                               ng-show="msWizard.isLastStep()"
+                               ng-disabled="msWizard.formsIncomplete()">
+                        Enovyer
+                    </md-button>
+                </div>
+
+            </ms-form-wizard>
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+

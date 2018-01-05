@@ -1,0 +1,23 @@
+{
+    "LOGIN_V2": {
+        "INTRO_TITLE": "Bienvenue a GEOMA",
+        "INTRO_DESCRIPTION": "La platforme qui vous offres un espace de travaille SIG.",
+        "TITLE": "Connectez-vous à votre compte",
+        "DESCRIPTION": "Le duexième pas c'est de s'identifier!",
+        "EMAIL": "Email ou login",
+        "PASSWORD": "Mot de passe",
+        "REMEMBER_ME": "Se souvenir de moi",
+        "FORGOT_PASSWORD": "Mot de passe oublié?",
+        "LOG_IN": "S'IDENTIFIER",
+        "OR": "OU",
+        "WITH_GOOGLE": "Connectez-vous avec Google",
+        "WITH_FACEBOOK": "Connectez-vous avec Facebook",
+        "DONT_HAVE_ACCOUNT": "Vous n'avez pas de compte?",
+        "CREATE_ACCOUNT": "Créer un compte",
+        "ERRORS": {
+            "EMAIL_REQUIRED": "Un login ou une adresse e-mail est requis",
+            "EMAIL_MUST_VALID": "Login ou mot de  adresse e-mail non valide",
+            "PASSWORD_REQUIRED": "Le champ du mot de passe est requis"
+        }
+    }
+}

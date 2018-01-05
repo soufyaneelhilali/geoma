@@ -1,0 +1,264 @@
+<div id="create" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+        <div layout="row">
+
+            <!-- FORM WIZARD -->
+ <!-- FORM WIZARD -->
+            <ms-form-wizard flex>
+                <md-tabs md-dynamic-height md-selected="msWizard.selectedIndex" md-center-tabs="true">
+                    <md-tab>
+                        <md-tab-label>
+                            <span class="ms-form-wizard-step-label">
+                                <span class="ms-form-wizard-step-number md-accent-bg"
+                                      ng-if="wizardStep1.$invalid">1</span>
+                                <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep1.$valid">
+                                    <i class="icon-check s16"></i>
+                                </span>
+                                <span class="ms-form-wizard-step-text">Information sur la Carte</span>
+                            </span>
+                        </md-tab-label>
+
+                        <md-tab-body>
+                            <form name="wizardStep1" class="md-inline-form" ms-form-wizard-form novalidate>
+                                <div layout="column" layout-gt-xs="row" flex layout-align="space-between center">
+                                <md-input-container flex="50" flex-gt-xs="50">
+                                    <input type="text" name="name" ng-model="vm.newMap.name" placeholder="Nom de la carte" required>
+                                    <div ng-messages="wizardStep1.name.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ nom de la Carte est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-gt-xs="50">
+                                    <input type="text" name="description" ng-model="vm.newMap.description" placeholder="description" required>
+                                    <div ng-messages="wizardStep1.description.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ description de la Carte est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div layout="column" layout-gt-xs="row" layout-align="space-between">
+
+
+                                <md-input-container  flex="30" flex-gt-xs="30">
+                                    <md-select ng-model="vm.newMap.theme_id"  placeholder="Thématique" class="md-no-underline select_bar" required>
+                                        <md-option ng-repeat="theme in vm.themes | orderBy:'name'" value="{{theme.id}}"> {{theme.name}}</md-option>
+                                        <md-tooltip md-direction="top">Veuillez choisir une Thématique</md-tooltip>
+                                    </md-select>
+                                </md-input-container>
+
+                            </div>
+                            </form>
+                        </md-tab-body>
+                    </md-tab>
+
+                    <md-tab ng-disabled="wizardStep1.$invalid">
+                        <md-tab-label>
+                            <span class="ms-form-wizard-step-label">
+                                <span class="ms-form-wizard-step-number md-accent-bg"
+                                      ng-if="wizardStep2.$invalid">2</span>
+                                <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep2.$valid">
+                                    <i class="icon-check s16"></i>
+                                </span>
+                                <span class="ms-form-wizard-step-text">Attributs</span>
+                            </span>
+                        </md-tab-label>
+
+                        <md-tab-body>
+                            <form name="wizardStep2" ms-form-wizard-form novalidate>
+                              <div layout="column" layout-gt-xs="row" flex layout-align="space-between center">
+                                <md-input-container flex="50" flex-gt-xs="30">
+                                    <input type="text" name="key" ng-model="vm.attribute.key" placeholder="key">
+                                    <div ng-messages="vm.test" ng-show="wizardStep1.firstname.$touched" role="alert">
+                                        <div ng-message="required">
+                                            <span>la clef est deja présente.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-gt-xs="30">
+                                    <input type="text" name="value" ng-model="vm.attribute.value" placeholder="value">
+                                    <div ng-messages="wizardStep1.firstname.$error" ng-show="wizardStep1.firstname.$touched" role="alert">
+                                        <div ng-message="required">
+                                            <span>la valeur est deja présente.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-gt-xs="30">
+                                <md-button class="md-raised md-accent center" ng-click="vm.addAttribute(vm.attribute);">
+                                    <span> Ajouter <strong class="icon-plus"></strong></span>
+                                </md-button>
+                                </md-input-container>
+
+                            </div >
+                            <div class="simple-table-container md-whiteframe-4dp">
+                            <div class="table-title">
+                             META-DATA
+                            </div>
+
+                            <table class="simple" ms-responsive-table>
+                            <thead>
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Valeur</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                                <tr ng-repeat="attribute in vm.newMap.attributes">
+                                    <td>{{attribute.key}}</td>
+                                    <td>{{attribute.value}}</td>
+                                    <td>
+                                        <md-button class="md-icon-button" data-ng-click="vm.removeAttribute($index);">
+                                            <md-icon md-font-icon="icon-delete" ng-style="{color:'#FF5252'}"></md-icon>
+                                            <md-tooltip md-direction="top">Supprimer : {{attribute.key}}</md-tooltip>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                                </table>
+                                   </div>
+                            </form>
+                        </md-tab-body>
+                    </md-tab>
+
+                    <md-tab ng-disabled="wizardStep1.$invalid || wizardStep2.$invalid">
+                        <md-tab-label>
+                            <span class="ms-form-wizard-step-label">
+                                <span class="ms-form-wizard-step-number md-accent-bg"
+                                      ng-if="wizardStep3.$invalid">3</span>
+                                <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep3.$valid">
+                                    <i class="icon-check s16"></i>
+                                </span>
+                                <span class="ms-form-wizard-step-text">Choix des Couches</span>
+                            </span>
+                        </md-tab-label>
+                        <md-tab-body>
+                            <form name="wizardStep3" ms-form-wizard-form novalidate>
+                                <div layout="column" layout-gt-xs="row" flex layout-align="space-between center">
+                                <md-input-container  flex="30" flex-gt-xs="30">
+                                    <md-select ng-model="Category.id" placeholder="Catégrie" class="md-no-underline select_bar" ng-change="getlayerbycat(Category.id)" required>
+                                        <md-option ng-repeat="Category in vm.categories | orderBy:'name'" value="{{Category.id}}"> {{Category.name}}</md-option>
+                                        <md-tooltip md-direction="top">Veuillez choisir une Catégorie</md-tooltip>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                                                        <div class="simple-table-container md-whiteframe-4dp">
+                            <div class="table-title">
+                             Liste des Couches
+                            </div>
+
+                            <table class="simple" ms-responsive-table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom de la couche</th>
+                                    <th>description</th>
+                                    <th>Prévisuaisé</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                                <tr ng-repeat="SL in vm.newMap.selectedlayers">
+                                    <td>{{SL.id}}</td>
+                                    <td>{{SL.name}}</td>
+                                    <td>{{SL.description}}</td>
+                                    <td>
+                                        <md-button class="md-icon-button" data-ng-click="vm.PreviewLayer($event,SL)">
+                                            <md-icon md-font-icon="icon-presentation" ng-style="{color:'#2196F3'}"></md-icon>
+                                            <md-tooltip md-direction="top">prévisualisé : {{SL.name}}</md-tooltip>
+                                        </md-button>
+                                    </td>
+                                                                        <td>
+                                        <md-button class="md-icon-button" data-ng-click="vm.removelayer($index);">
+                                            <md-icon md-font-icon="icon-delete" ng-style="{color:'#FF5252'}"></md-icon>
+                                            <md-tooltip md-direction="top">Supprimer : {{SL.name}}</md-tooltip>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                                </table>
+                                   </div>
+
+                            </form>
+    
+                        </md-tab-body>
+                    </md-tab>
+                </md-tabs>
+
+                <div class="navigation" flex layout="row" layout-align="center center">
+                    <md-button class="md-raised md-accent" ng-click="msWizard.previousStep()"
+                               ng-disabled="msWizard.isFirstStep()">
+                        Précedent
+                    </md-button>
+                    <div class="steps">
+                        <span ng-repeat="form in msWizard.forms"
+                              ng-class="{'selected md-accent-bg':msWizard.selectedIndex === $index}"></span>
+                    </div>
+                    <md-button class="md-raised md-accent" ng-click="msWizard.nextStep()"
+                               ng-hide="msWizard.isLastStep()"
+                               ng-disabled="msWizard.currentStepInvalid()">
+                        Suivant
+                    </md-button>
+                    <md-button class="md-raised md-warn" ng-click="vm.sendForm();"
+                               ng-show="msWizard.isLastStep()"
+                               ng-disabled="msWizard.formsIncomplete()">
+                        Enovyer
+                    </md-button>
+                </div>
+
+            </ms-form-wizard>
+
+        </div>
+    <!-- WIDGET GROUP -->
+    <div class="widget-group" layout="row" flex="100" layout-wrap>
+                         <!-- WIDGET 2 -->
+            <!-- WIDGET 2 -->
+            <ms-widget ng-repeat="layer in vm.layerbycat track by layer.id" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 blue-400-bg white-fg">
+                    <div class="pb-12" layout="row" layout-align="space-between center">
+                        <div layout="row" layout-align="start center">
+                            <md-icon class="m-0 mr-8" md-font-icon="icon-layers"></md-icon>
+                            <div class="h3">{{layer.category.name}}</div>
+                        </div>
+                            <md-button aria-label="more" class="md-icon-button"
+                                       ng-click="selectlayer(layer);vm.removelayerfromlist(layer)">
+                                <md-icon md-font-icon="icon-plus-circle"></md-icon>
+                            </md-button>
+                    </div>
+
+                    <div class="pb-24 pl-50" layout="row" layout-align="start center">
+                        <div class="h2">{{layer.name}}</div>
+                    </div>
+
+                    <md-progress-linear md-mode="determinate"
+                                        value="100"></md-progress-linear>
+                    <div class="p-5 grey-02-bg" layout="row" layout-align="start center">
+                        <span class="h4 secondary-text text-truncate">
+                        <md-icon md-font-icon="icon-account">
+                        </md-icon> {{layer.user.firstname +",  "+ layer.user.lastname}}
+                        </span>
+                        <span class="h4 ml-8"></span>
+                        <md-button class="md-icon-button" data-ng-click="vm.PreviewLayer($event,layer)">
+                        <md-icon md-font-icon="icon-presentation"></md-icon>
+                        <md-tooltip md-direction="top">prévisualisé : {{layer.name}}</md-tooltip>
+                    </md-button>
+                    </div>
+
+
+                </ms-widget-front>
+                <!-- / Front -->
+            </ms-widget>
+            <!-- / WIDGET 2 -->
+
+
+        </div>
+<!-- / WIDGET GROUP -->
+    </div>
+    <!-- / CONTENT -->
+
+</div>

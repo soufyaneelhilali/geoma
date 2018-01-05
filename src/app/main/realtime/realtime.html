@@ -1,0 +1,134 @@
+<div id="Realtime" class="page-layout simple fullwidth" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-white-bg" ng-class="'md-'+vm.board.settings.color+'-bg'" layout="column">
+
+        <div class="header-content" layout="row" layout-align="space-between" layout-wrap flex>
+
+            <!-- BOARD SELECTION BUTTON -->
+            <div layout="row" layout-align="center center" flex-order="1" flex-order-xs="2">
+                <md-button class="md-accent md-raised md-hue-2 header-boards-button"
+                           ng-class="'md-'+vm.board.settings.color+'-700-bg'"
+                           ng-click="vm.boardSelectorVisible = !vm.boardSelectorVisible"
+                           aria-label="boards button" translate >
+                    <md-icon md-font-icon="icon-cast-connected" class="icon"></md-icon>
+                    <span>Connecter un périphérique</span>
+                </md-button>
+            </div>
+            <!-- / BOARD SELECTION BUTTON -->
+
+            <!-- MAP NAME -->
+            <div class="header-board-name" layout="row" layout-align="center center" flex-order="2" flex-order-xs="1"
+                 flex-xs="100">
+                <i class="board-subscribe s32 icon-satellite-variant"></i>
+                <span>Capteur temps réel : {{Newdevice.name}}</span>
+            </div>
+            <!-- / MAP NAME -->
+
+            <!-- TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" flex-order="3">
+                <md-button class="md-icon-button"
+                           ng-click="vm.toggleSidenav('devices-sidenav')"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-crosshairs-gps"></md-icon>
+                    <md-tooltip><span>périphériques</span></md-tooltip>
+                </md-button>
+            </div>
+            <!-- / TOOLBAR -->
+
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- BOARD SELECTION -->
+    <div ng-show="vm.boardSelectorVisible"
+         id="board-selector"
+         class="md-white-bg animate-slide-down board-list md-whiteframe-3dp"
+         layout="row" layout-align="start center">
+                                <div layout="column" layout-gt-xs="row" flex layout-align="space-between center">
+                                <md-input-container  flex="30" flex-gt-xs="20">
+                                    <md-select ng-model="Newdevice.realtimecategory_id"  placeholder="Categorie" class="md-no-underline select_bar " required>
+                                        <md-option ng-repeat="category in vm.realtimecat | orderBy:'name'" value="{{category.id}}"> {{category.name}}</md-option>
+                                        <md-tooltip md-direction="top">Veuillez choisir une Categorie</md-tooltip>
+                                    </md-select>
+                                </md-input-container>
+                                <md-input-container flex="20" flex-gt-xs="20">
+                                    <input type="text" name="name" ng-model="Newdevice.name" placeholder="Nom du périphérique" required>
+                                    <div ng-messages="wizardStep1.name.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ nom est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="20" flex-gt-xs="20">
+                                    <input type="text" name="IMEI" ng-model="Newdevice.imei" placeholder="Code IMEI du périphérique" required>
+                                    <div ng-messages="wizardStep1.name.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ IMEI est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="20" flex-gt-xs="20">
+                                    <input type="text" name="description" ng-model="Newdevice.description" classe="white-fg"placeholder="description" required>
+                                    <div ng-messages="wizardStep1.description.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ description est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                <md-button class="md-white md-raised md-hue-2 header-boards-button"
+                           ng-class="'md-'+vm.board.settings.color+'-700-bg'"
+                           ng-click="vm.connecter(Newdevice)"
+                           aria-label="boards button" translate >
+                    <md-icon md-font-icon="icon-cast-connected" class="icon"></md-icon>
+                    <span>Connecter</span>
+                </md-button>
+                            </div>
+
+
+    </div>
+
+    <md-backdrop class="board-selector-backdrop md-dialog-backdrop md-opaque" ng-show="vm.boardSelectorVisible"
+                 ng-click="vm.boardSelectorVisible = false" aria-hidden="true">
+    </md-backdrop>
+    <!-- / BOARD SELECTION -->
+
+    <!-- CONTENT -->
+    <md-content class="content" flex layout="column" ui-view="scrumboardContent">
+        <leaflet defaults="defaults" center="center" markers="markers" watch-markers="true" controls="controls" width="100%" height="600px" event-broadcast="events" ></leaflet>
+    </md-content>
+    <!-- / CONTENT -->
+    <md-sidenav class="filters-sidenav md-sidenav-right"s md-component-id="devices-sidenav" ms-scroll>
+	        <!-- SIDENAV HEADER -->
+		<md-toolbar class="md-accent" ng-class="'md-accent-bg'">
+		    <div class="md-toolbar-tools">
+		        <span flex class="menu-title">Pérepheriques</span>
+		        <md-button ng-if="true" ng-click="vm.toggleSidenav('devices-sidenav')" class="md-icon-button"
+		                   aria-label="close layers">
+		            <md-icon md-font-icon="icon-close"></md-icon>
+		            <md-tooltip>
+		                <span >Férmer</span>
+		            </md-tooltip>
+		        </md-button>
+		    </div>
+		</md-toolbar>
+		<!-- / SIDENAV HEADER -->
+
+		<!-- CONTENT -->
+
+			<!-- Todo list pane -->
+
+        <md-list-item class="label" ng-repeat="device in vm.devices"
+                      ng-click="vm.pantodevice(device.id)">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>{{device.name}}</p>
+            <i class="icon-check s16" ng-if="device.id == vm.selected_device"></i>
+        </md-list-item>
+
+			<!-- / Todo list pane -->
+    </md-sidenav>
+    <!-- / FILTERS SIDENAV -->
+
+
+</div>

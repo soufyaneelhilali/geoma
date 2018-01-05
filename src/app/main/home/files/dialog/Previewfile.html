@@ -1,0 +1,56 @@
+<md-dialog aria-label="Prévisualisation">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Détails sur le fichier : {{file.name +'.'+file.type }}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+    <table class="simple" ms-responsive-table>
+    <thead>
+        <tr>
+            <th>Attribut</th>
+            <th>Valeur</th>
+        </tr>
+    </thead>
+      <tr>
+            <td>Nom :</td>
+            <td>{{file.name}}</td>
+      </tr>
+      <tr>
+            <td>Description :</td>
+            <td>{{file.description}}</td>
+      </tr>
+      <tr>
+            <td>Utilisateur :</td>
+            <td>{{file.user.firstname}}  {{file.user.lastname}}</td>
+      </tr>
+      <tr>
+            <td>Catégorie :</td>
+            <td>{{file.category.name}}</td>
+      </tr>
+      <tr>
+            <td>Approuvé :</td>
+            <td>{{file.approve}}</td>
+      </tr>
+      <tr>
+            <td>Partagé :</td>
+            <td>{{file.share}}</td>
+      </tr>
+
+</table>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('Close')">
+        Férmer
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

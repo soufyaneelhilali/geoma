@@ -1,0 +1,138 @@
+<div id="dashboardlayer" class="page-layout carded fullwidth" layout="row">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center" layout="column" flex>
+
+        <!-- CONTENT HEADER -->
+        <div class="header" layout="row" layout-align="space-between center">
+            <div class="white-fg" layout="column" layout-align="start start">
+                <div class="h1" layout="row" layout-align="start center">
+                    <md-icon md-font-icon="icon-layers"></md-icon>
+                    <span>Couches</span>
+                </div>
+                <div class="product-count secondary-text">
+                    <span >Couches :</span>
+                    <span>{{vm.napprovedcount}} Non approuvé / </span>
+                    <span>{{vm.nsharedcount}} Non partagé</span>
+                </div>
+            </div>
+
+            <div class="search" layout="row" layout-align="start center" flex>
+                <md-icon md-font-icon="icon-magnify" class="white-text icon search-icon"></md-icon>
+                <input id="e-commerce-products-search" class="search-input" type="text" placeholder="Chercher des Couches"
+                        flex>
+            </div>
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" layout="column" flex>
+
+            <!-- CONTENT TOOLBAR -->
+
+            <!-- / CONTENT TOOLBAR -->
+
+            <!-- CONTENT -->
+            <div class="content fullpage-datatable" layout="column" flex>
+
+                <table class="dataTable row-border hover" datatable="ng" dt-instance="vm.dtInstance"
+                       dt-options="vm.dtOptions">
+                    <thead>
+                       <tr>
+                            <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Status</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Nom</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Description</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Utilisateur</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Operation</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="layer in vm.layers">
+                            <td>
+                                <span class="ml-2 text-boxed white-bg">
+                                    <span ng-show="{{layer.approve}}" class="ml-2 text-boxed blue-bg white-fg"> Approuvé </span>
+
+                                    <span ng-show="{{layer.share}}" class="ml-2 text-boxed blue-bg white-fg"> Partagé </span>
+
+                                    <span ng-hide="{{layer.approve}}" class="ml-2 text-boxed pink-bg white-fg"> Non approuvé </span>
+
+                                    <span ng-hide="{{layer.share}}" class="ml-2 text-boxed pink-bg white-fg"> Non partagé </span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                        {{layer.name}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                    {{layer.description}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                    {{layer.user.firstname}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                      <md-button id="share{{layer.id}}" ng-hide="{{layer.share}}" class="md-icon-button" ng-click="vm.sharelayer($event,layer,'Partager')"
+                                        aria-label="more">
+                                        <md-tooltip md-direction="top">Partager</md-tooltip>
+                                        <md-icon md-font-icon="icon-share-variant" ng-style="{color:'#2196F3'}"></md-icon>
+                                    </md-button>
+                                     <md-button id="approve{{layer.id}}" ng-hide="{{layer.approve}}" class="md-icon-button" ng-click="vm.aprovelayer($event,layer,'Aprouver')"
+                                        aria-label="more">
+                                        <md-tooltip md-direction="top">Aprouver</md-tooltip>
+                                        <md-icon md-font-icon="icon-send" ng-style="{color:'#4CAF50'}"></md-icon>
+                                    </md-button>
+                                     <md-button class="md-icon-button" ng-click="vm.putlayer($event,layer,'Modifier')"
+                                        aria-label="more">
+                                        <md-tooltip md-direction="top">Modifier</md-tooltip>
+                                        <md-icon md-font-icon="icon-table-edit" ng-style="{color:'#FFC107'}"></md-icon>
+                                    </md-button>
+                                    <md-button class="md-icon-button" ng-click="vm.editlayer($event,layer,'Supprimer')"
+                                        aria-label="more">
+                                        <md-tooltip md-direction="top">Supprimer</md-tooltip>
+                                        <md-icon md-font-icon="icon-delete" ng-style="{color:'#E91E63'}"></md-icon>
+                                    </md-button>
+                                    </span>
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

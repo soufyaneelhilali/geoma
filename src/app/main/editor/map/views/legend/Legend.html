@@ -1,0 +1,24 @@
+<!-- TODO LIST ITEMS -->
+<div class="todo-items" ng-sortable="vm.sortableOptions" ng-model="vm.tasks" ng-class="{'sortable': vm.taskOrder === ''}">
+    <div class="todo-item" md-ink-ripple layout="row" layout-align="start center"
+         ng-click="vm.openTaskDialog($event, task)"
+         ng-repeat="lg in vm.legend | orderBy : 'wms.options.zIndex':true track by lg.layername "
+         ng-class="{'starred': task.starred, 'selected': task.selected, 'completed': task.completed}">
+
+
+        <div layout="row" layout-align="start center" flex>
+          <img ng-src="{{lg.legendurl}}">
+            <div class="info" >
+                <div class="title">
+                    {{lg.layername}}
+                </div>
+
+
+            </div>
+
+            </div>
+
+    </div>
+
+</div>
+<!-- / TODO LIST ITEMS -->

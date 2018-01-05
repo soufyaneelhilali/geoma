@@ -1,0 +1,28 @@
+<md-dialog aria-label="Prévisualisation">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools" >
+        <h2>{{ops}} la couche : {{maps.name}}?</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="operation on map" ng-click="answer('Close')">
+              <md-icon md-font-icon="icon-close"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+
+    Voulez vous continuer cette operation  ? 
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-style="{color:'#E91E63'}" ng-click="answer('confirme')" >
+       Confirmer
+      </md-button>
+      <md-button ng-click="answer('Close')">
+        Annuler
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

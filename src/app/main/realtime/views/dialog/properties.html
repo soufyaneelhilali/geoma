@@ -1,0 +1,40 @@
+<div id="create" class="page-layout simple fullwidth doc-page" layout="column">
+    <div class="content" layout="column">
+        <div class="row">
+          <h3 class="md-headline">{{marker.device.name}}</h3>
+        </div>
+        <table class="simple">
+          <tbody>
+            <tr>
+              <td>
+                <i class="icon icon-bookmark"></i>{{marker.device.category.name}}
+              </td>
+              <td>
+                <i class="icon icon-timer"></i><span am-time-ago="marker.properties.tracking_time"></span>
+              </td>
+            </tr>
+          </tbody>          
+        </table>
+        </div>
+        <div layout="row text-center">
+          <table class="simple" ms-responsive-table="">
+            <thead>
+              <tr>
+                <th>Propriété</th>
+                <th>Valeur</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key, value) in marker.properties">
+                <td>
+                  {{key}}
+                </td>
+                <td>
+                  {{value}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<md-dialog aria-label="Prévisualisation">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>prévisualisation de la couche : {{layer.name}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+
+         <leaflet defaults="defaults" controls="controls" lf-center="center" width="620px" height="320px" map="map" layers="layers"></leaflet>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('Editor')">
+       Voire dans l'éditeur
+      </md-button>
+      <md-button ng-click="answer('Close')">
+        Férmer
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

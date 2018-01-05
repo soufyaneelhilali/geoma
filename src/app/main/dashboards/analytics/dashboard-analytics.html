@@ -1,0 +1,367 @@
+<div id="dashboard-analytics">
+
+    <!-- WIDGETS -->
+    <div id="widgets">
+        <!-- WIDGET GROUP -->
+        <div class="widget-group" layout="row" flex="100" layout-wrap>
+
+            <!-- WIDGET 2 -->
+            <ms-widget flippable="true" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 pink-400-bg white-fg">
+                    <div class="pb-24" layout="row" layout-align="space-between center">
+                        <div layout="row" layout-align="start center">
+                            <md-icon class="m-0 mr-8" md-font-icon="icon-map"></md-icon>
+                            <div class="h3">Mes Cartes / total</div>
+                        </div>
+
+                        <md-menu>
+                            <md-button aria-label="more" class="md-icon-button"
+                                       ng-click="$mdOpenMenu($event)">
+                                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                            </md-button>
+                            <md-menu-content width="2">
+                                <md-menu-item>
+                                    <md-button ng-click="flipWidget()" aria-label="Flip widget">
+                                        Details
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="refreshWidget()" aria-label="Refresh widget">
+                                        Refresh
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+
+                    <div class="pb-24" layout="row" layout-align="start center">
+                        <div class="h2">{{vm.countmymaps}}</div>
+                        <div class="h2 secondary-text pl-8">/ {{vm.countmaps}} Cartes</div>
+                    </div>
+
+                    <md-progress-linear md-mode="determinate"
+                                        value="{{vm.countmymaps * 100 / vm.countmaps}}"> Persentage</md-progress-linear>
+                </ms-widget-front>
+                <!-- / Front -->
+
+                <!-- Back -->
+                <ms-widget-back class="p-16 pr-32 pink-400-bg white-fg">
+                    <div class="flip-to-front">
+                        <md-button class="md-icon-button" ng-click="flipWidget()" aria-label="Flip widget">
+                            <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                        </md-button>
+                    </div>
+
+                    <div>
+                        {{vm.widget22.detail}}
+                    </div>
+                </ms-widget-back>
+                <!-- / Back -->
+
+            </ms-widget>
+            <!-- / WIDGET 2 -->
+
+            <!-- WIDGET 3 -->
+            <ms-widget flippable="true" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 blue-bg white-fg">
+                    <div class="pb-24" layout="row" layout-align="space-between center">
+                        <div layout="row" layout-align="start center">
+                            <md-icon class="m-0 mr-8" md-font-icon="icon-layers"></md-icon>
+                            <div class="h3">Mes Couches / total</div>
+                        </div>
+
+                        <md-menu>
+                            <md-button aria-label="more" class="md-icon-button"
+                                       ng-click="$mdOpenMenu($event)">
+                                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                            </md-button>
+                            <md-menu-content width="2">
+                                <md-menu-item>
+                                    <md-button ng-click="flipWidget()" aria-label="Flip widget">
+                                        Details
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="refreshWidget()" aria-label="Refresh widget">
+                                        Refresh
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+
+                    <div class="pb-24" layout="row" layout-align="start end">
+                        <div class="h2">{{vm.countmylayers}}</div>
+                        <div class="h2 pl-8 secondary-text">/ {{vm.countlayers}} Couches</div>
+                    </div>
+
+                    <md-progress-linear md-mode="determinate"
+                                        value="{{vm.countmylayers * 100 / vm.countlayers}}"></md-progress-linear>
+                </ms-widget-front>
+                <!-- / Front -->
+
+                <!-- Back -->
+                <ms-widget-back class="p-16 pr-32 blue-bg white-fg">
+                    <div class="flip-to-front">
+                        <md-button class="md-icon-button" ng-click="flipWidget()" aria-label="Flip widget">
+                            <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                        </md-button>
+                    </div>
+
+                    <div>
+                        {{vm.widget23.detail}}
+                    </div>
+                </ms-widget-back>
+                <!-- / Back -->
+
+            </ms-widget>
+            <!-- / WIDGET 3 -->
+            <!-- WIDGET 3 -->
+            <ms-widget flippable="true" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 teal-400-bg white-fg">
+                    <div class="pb-24" layout="row" layout-align="space-between center">
+                        <div layout="row" layout-align="start center">
+                            <md-icon class="m-0 mr-8" md-font-icon="icon-layers"></md-icon>
+                            <div class="h3">Mes Fichiers / total</div>
+                        </div>
+
+                        <md-menu>
+                            <md-button aria-label="more" class="md-icon-button"
+                                       ng-click="$mdOpenMenu($event)">
+                                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                            </md-button>
+                            <md-menu-content width="2">
+                                <md-menu-item>
+                                    <md-button ng-click="flipWidget()" aria-label="Flip widget">
+                                        Details
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="refreshWidget()" aria-label="Refresh widget">
+                                        Refresh
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                        
+
+                    <div class="pb-24" layout="row" layout-align="start end">
+                        <div class="h2">{{vm.countmyfiles}}</div>
+                        <div class="h2 pl-8 secondary-text">/ {{vm.countfiles}} Fichiers</div>
+                    </div>
+
+                    <md-progress-linear md-mode="determinate"
+                                        value="{{vm.countmyfiles * 100 / vm.countfiles}}"></md-progress-linear>
+                </ms-widget-front>
+                <!-- / Front -->
+
+                <!-- Back -->
+                <ms-widget-back class="p-16 pr-32 blue-bg white-fg">
+                    <div class="flip-to-front">
+                        <md-button class="md-icon-button" ng-click="flipWidget()" aria-label="Flip widget">
+                            <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                        </md-button>
+                    </div>
+
+                    <div>
+                        {{vm.widget23.detail}}
+                    </div>
+                </ms-widget-back>
+                <!-- / Back -->
+
+            </ms-widget>
+            <!-- / WIDGET 3 -->
+
+
+
+            <!-- WIDGET 5 -->
+            <ms-widget flippable="true" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 indigo-400-bg white-fg">
+                    <div class="pb-24" layout="row" layout-align="space-between center">
+                        <div layout="row" layout-align="start center">
+                            <md-icon class="m-0 mr-8" md-font-icon="icon-account-circle"></md-icon>
+                            <div class="h3">Utilisateurs</div>
+                        </div>
+
+                        <md-menu>
+                            <md-button aria-label="more" class="md-icon-button"
+                                       ng-click="$mdOpenMenu($event)">
+                                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                            </md-button>
+                            <md-menu-content width="2">
+                                <md-menu-item>
+                                    <md-button ng-click="flipWidget()" aria-label="Flip widget">
+                                        Details
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="refreshWidget()" aria-label="Refresh widget">
+                                        Refresh
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+
+                    <div layout="column" layout-align="space-between" flex>
+                        <div class="h1 pb-8" layout="row" layout-align="start center">
+                            <span>{{vm.countusers}}</span>
+                            <md-icon md-font-icon="icon-trending-up" class="ml-16"></md-icon>
+                        </div>
+
+                        <div class="secondary-text">{{vm.widget25.footnote}}</div>
+
+                    <div class="chart-fill-16">
+
+                        <nvd3 class="h-50 remove-opacity remove-line-stroke"
+                          options="vm.widget1.pageviews.options"
+                          data="vm.widget1.avgSessionDuration.data"></nvd3>
+                    </div>
+                    </div>
+                </ms-widget-front>
+                <!-- / Front -->
+
+                <!-- Back -->
+                <ms-widget-back class="p-16 pr-32 indigo-400-bg white-fg">
+                    <div class="flip-to-front">
+                        <md-button class="md-icon-button" ng-click="flipWidget()" aria-label="Flip widget">
+                            <md-icon md-font-icon="icon-close" class="s16"></md-icon>
+                        </md-button>
+                    </div>
+
+                    <div>
+                        {{vm.widget25.detail}}
+                    </div>
+                </ms-widget-back>
+                <!-- / Back -->
+
+            </ms-widget>
+            <!-- / WIDGET 5 -->
+
+        </div>
+        <!-- / WIDGET GROUP -->
+        <!-- WIDGET GROUP -->
+        <div class="widget-group" layout="row" flex="100" layout-wrap>
+
+            <!-- WIDGET 1 -->
+            <ms-widget flippable="false" layout="row" flex="100">
+
+                <!-- Front -->
+                <ms-widget-front class="white-bg">
+
+                    <div class="p-24 border-bottom" layout="row" layout-align="space-between center">
+                        <div class="h3">aperçu global</div>
+                        <div class="text-boxed green-600-bg white-fg">{{vm.widget1.onlineUsers}} online users</div>
+                    </div>
+
+                    <div class="pb-32 border-bottom">
+                        <nvd3 class="h-400 remove-x-lines remove-opacity"
+                              options="vm.widget1.bigChart.options"
+                              data="vm.widget1.bigChart.data"></nvd3>
+                    </div>
+
+                    <div layout="row" layout-align="start center" layout-wrap>
+
+                        <div class="p-24 grey-50-bg" layout="row" layout-align="start center" flex="100" flex-gt-xs="50"
+                             flex-gt-md="25">
+                            <div layout="column" flex>
+                                <div class="h3 secondary-text pb-8">
+                                    {{vm.widget1.sessions.title}}
+                                </div>
+
+                                <div class="font-size-32 line-height-32 pb-16">
+                                    {{vm.widget1.sessions.value}}
+                                </div>
+
+                                <div>
+                                    <nvd3 class="h-40"
+                                          options="vm.widget1.sessions.options"
+                                          data="vm.widget1.sessions.data"></nvd3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -->
+
+                        <div class="p-24 grey-50-bg" layout="row" layout-align="start center" flex="100" flex-gt-xs="50"
+                             flex-gt-md="25">
+                            <div layout="column" flex>
+                                <div class="h3 secondary-text pb-8">
+                                    Pages vues
+                                </div>
+
+                                <div class="font-size-32 line-height-32 pb-16">
+                                    {{vm.widget1.pageviews.value}}
+                                </div>
+
+                                <div>
+                                    <nvd3 class="h-40"
+                                          options="vm.widget1.pageviews.options"
+                                          data="vm.widget1.pageviews.data"></nvd3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -->
+
+                        <div class="p-24 grey-50-bg" layout="row" layout-align="start center" flex="100" flex-gt-xs="50"
+                             flex-gt-md="25">
+                            <div layout="column" flex>
+                                <div class="h3 secondary-text pb-8">
+                                    {{vm.widget1.pagesSessions.title}}
+                                </div>
+
+                                <div class="font-size-32 line-height-32 pb-16">
+                                    {{vm.widget1.pagesSessions.value}}
+                                </div>
+
+                                <div>
+                                    <nvd3 class="h-40"
+                                          options="vm.widget1.pagesSessions.options"
+                                          data="vm.widget1.pagesSessions.data"></nvd3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -->
+
+                        <div class="p-24 grey-50-bg" layout="row" layout-align="start center" flex="100" flex-gt-xs="50"
+                             flex-gt-md="25">
+                            <div layout="column" flex>
+                                <div class="h3 secondary-text pb-8">
+                                    Moy. Durée de la session
+                                </div>
+
+                                <div class="font-size-32 line-height-32 pb-16">
+                                    {{vm.widget1.avgSessionDuration.value}}
+                                </div>
+
+                                <div>
+                                    <nvd3 class="h-40"
+                                          options="vm.widget1.avgSessionDuration.options"
+                                          data="vm.widget1.avgSessionDuration.data"></nvd3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </ms-widget-front>
+                <!-- / Front -->
+
+            </ms-widget>
+            <!-- / WIDGET 1 -->
+
+        </div>
+        <!-- / WIDGET GROUP -->
+    </div>
+</div>

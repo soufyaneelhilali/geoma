@@ -1,0 +1,203 @@
+<div id="create" class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+        <div layout="row">
+
+            <!-- FORM WIZARD -->
+ <!-- FORM WIZARD -->
+            <ms-form-wizard flex>
+                <md-tabs md-dynamic-height md-selected="msWizard.selectedIndex" md-center-tabs="true">
+                    <md-tab>
+                        <md-tab-label>
+                            <span class="ms-form-wizard-step-label">
+                                <span class="ms-form-wizard-step-number md-accent-bg"
+                                      ng-if="wizardStep1.$invalid">1</span>
+                                <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep1.$valid">
+                                    <i class="icon-check s16"></i>
+                                </span>
+                                <span class="ms-form-wizard-step-text">Information sur la couche</span>
+                            </span>
+                        </md-tab-label>
+
+                        <md-tab-body>
+                            <form name="wizardStep1" class="md-inline-form" ms-form-wizard-form novalidate>
+                                <div layout="column" layout-gt-xs="row" flex layout-align="space-between center">
+                                <md-input-container flex="50" flex-gt-xs="50">
+                                    <input type="text" name="name" ng-model="vm.newLayer.name" placeholder="name" required>
+                                    <div ng-messages="wizardStep1.name.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ nom de la couche est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-gt-xs="50">
+                                    <input type="text" name="description" ng-model="vm.newLayer.description" placeholder="description" required>
+                                    <div ng-messages="wizardStep1.description.$error" role="alert">
+                                        <div ng-message="required">
+                                            <span>Le champ description de la couche est requis.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div layout="column" layout-gt-xs="row" layout-align="space-between">
+
+                                <md-input-container flex="30" flex-gt-xs="30">
+                                    <md-select ng-model="vm.newLayer.type" placeholder="type" class="md-no-underline" required>
+                                        <md-option value="VECTOR">Vectoriel</md-option>
+                                        <md-option value="RASTER">Raster</md-option>
+                                        <md-tooltip md-direction="top">il s'agit d'un vecteur ou raster..?</md-tooltip>
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-input-container  ng-show="vm.newLayer.type=='VECTOR'" flex="30" flex-gt-xs="30">
+                                    <md-select ng-model="vm.newLayer.featuretype" placeholder="Format" class="md-no-underline">
+                                        <md-option value="POINT">Point</md-option>
+                                        <md-option value="LINE">Ligne</md-option>
+                                        <md-option value="POLYGON">Polygone</md-option>
+                                        <md-tooltip md-direction="top">Quelle format ?</md-tooltip>
+                                    </md-select>
+                                </md-input-container>
+
+                                <md-input-container  flex="30" flex-gt-xs="30">
+                                    <md-select ng-model="vm.newLayer.category_id"  placeholder="Categorie" class="md-no-underline select_bar" required>
+                                        <md-option ng-repeat="categories in vm.categories | orderBy:'name'" value="{{categories.id}}"> {{categories.name}}</md-option>
+                                        <md-tooltip md-direction="top">Veuillez choisir une categorie</md-tooltip>
+                                    </md-select>
+                                </md-input-container>
+
+                            </div>
+                            </form>
+                        </md-tab-body>
+                    </md-tab>
+
+                    <md-tab ng-disabled="wizardStep1.$invalid">
+                        <md-tab-label>
+                            <span class="ms-form-wizard-step-label">
+                                <span class="ms-form-wizard-step-number md-accent-bg"
+                                      ng-if="wizardStep2.$invalid">2</span>
+                                <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep2.$valid">
+                                    <i class="icon-check s16"></i>
+                                </span>
+                                <span class="ms-form-wizard-step-text">Attributs</span>
+                            </span>
+                        </md-tab-label>
+
+                        <md-tab-body>
+                            <form name="wizardStep2" ms-form-wizard-form novalidate>
+                              <div layout="column" layout-gt-xs="row" flex layout-align="space-between center">
+                                <md-input-container flex="50" flex-gt-xs="30">
+                                    <input type="text" name="key" ng-model="vm.attribute.key" placeholder="key">
+                                    <div ng-messages="vm.test" ng-show="wizardStep1.firstname.$touched" role="alert">
+                                        <div ng-message="required">
+                                            <span>la clef est deja présente.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-gt-xs="30">
+                                    <input type="text" name="value" ng-model="vm.attribute.value" placeholder="value">
+                                    <div ng-messages="wizardStep1.firstname.$error" ng-show="wizardStep1.firstname.$touched" role="alert">
+                                        <div ng-message="required">
+                                            <span>la valeur est deja présente.</span>
+                                        </div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container flex="50" flex-gt-xs="30">
+                                <md-button class="md-raised md-accent center" ng-click="vm.addAttribute(vm.attribute);">
+                                    <span> Ajouter <strong class="icon-plus"></strong></span>
+                                </md-button>
+                                </md-input-container>
+
+                            </div >
+                            <div class="simple-table-container md-whiteframe-4dp">
+                            <div class="table-title">
+                             META-DATA
+                            </div>
+
+                            <table class="simple" ms-responsive-table>
+                            <thead>
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Valeur</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                                <tr ng-repeat="attribute in vm.newLayer.attributs">
+                                    <td>{{attribute.key}}</td>
+                                    <td>{{attribute.value}}</td>
+                                    <td>
+                                        <md-button class="md-icon-button" data-ng-click="vm.removeAttribute($index);">
+                                            <md-icon md-font-icon="icon-delete" ng-style="{color:'#c0392b'}"></md-icon>
+                                            <md-tooltip md-direction="top">Supprimer : {{attribute.key}}</md-tooltip>
+                                        </md-button>
+                                    </td>
+                                </tr>
+                                </table>
+                                   </div>
+                            </form>
+                        </md-tab-body>
+                    </md-tab>
+
+                    <md-tab ng-disabled="wizardStep1.$invalid || wizardStep2.$invalid">
+                        <md-tab-label>
+                            <span class="ms-form-wizard-step-label">
+                                <span class="ms-form-wizard-step-number md-accent-bg"
+                                      ng-if="wizardStep3.$invalid">3</span>
+                                <span class="ms-form-wizard-step-number md-accent-bg" ng-if="wizardStep3.$valid">
+                                    <i class="icon-check s16"></i>
+                                </span>
+                                <span class="ms-form-wizard-step-text">Téléchargement</span>
+                            </span>
+                        </md-tab-label>
+                        <md-tab-body>
+                            <form name="wizardStep3" ms-form-wizard-form novalidate enctype="multipart/form-data">
+                           <input id="fileInput" accept=".zip,.rar,.shp,.tiff" file-model="file" name="filename" type="file" class="ng-hide" 
+                           onchange="angular.element(this).scope().handleFileSelect(this.files);">
+                            <md-button class="md-raised" ng-click="upload(file)">
+                              <label>Choisissez le fichier à télécharger</label>
+                            </md-button>
+                            <li>Nom du fichier : {{vm.newLayer.filename}}</li>
+                            <li>Taille du fichier : {{filesize}}</li>
+                            <md-progress-linear  ng-show="pb" md-mode="indeterminate"></md-progress-linear>
+                            </form>
+                        </md-tab-body>
+                    </md-tab>
+                </md-tabs>
+
+                <div class="navigation" flex layout="row" layout-align="center center">
+                    <md-button class="md-raised md-accent" ng-click="msWizard.previousStep()"
+                               ng-disabled="msWizard.isFirstStep()">
+                        Précedent
+                    </md-button>
+                    <div class="steps">
+                        <span ng-repeat="form in msWizard.forms"
+                              ng-class="{'selected md-accent-bg':msWizard.selectedIndex === $index}"></span>
+                    </div>
+                    <md-button class="md-raised md-accent" ng-click="msWizard.nextStep()"
+                               ng-hide="msWizard.isLastStep()"
+                               ng-disabled="msWizard.currentStepInvalid()">
+                        Suivant
+                    </md-button>
+                    <md-button class="md-raised md-warn" ng-click="vm.sendForm(file);"
+                               ng-show="msWizard.isLastStep()"
+                               ng-disabled="msWizard.formsIncomplete()">
+                        Enovyer
+                    </md-button>
+                </div>
+
+            </ms-form-wizard>
+            <!-- / FORM WIZARD -->
+
+            <!-- / FORM WIZARD -->
+
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

@@ -1,0 +1,313 @@
+<div id="files" class="page-layout simple right-sidenav" layout="row">
+
+    <!-- CENTER -->
+    <div class="center" flex ms-scroll>
+
+    <!-- HEADER -->
+        <div class="header-content md-accent-bg" layout="row" layout-align="space-between" layout-wrap flex>
+            <!-- / BOARD SELECTION BUTTON -->
+
+            <!-- BOARD NAME -->
+            <div class="header-board-name" layout="row" layout-align="center center" flex-order="2" flex-order-xs="1"
+                 flex-xs="100">
+            </div>
+            <!-- / BOARD NAME -->
+
+            <!-- TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" flex-order="3">
+
+                <!-- CALENDAR BUTTON -->
+                <md-button class="md-icon-button"
+                           ui-sref="app.scrumboard.boards.board.calendar"
+                           ng-hide="'app.scrumboard.boards.board.calendar' | isState"
+                           aria-label="Calendar" translate translate-attr-aria-label="SB.CALENDAR">
+                    <md-icon md-font-icon="icon-calendar"></md-icon>
+                    <md-tooltip><span>Filter par date</span></md-tooltip>
+                </md-button>
+
+                <!-- / CALENDAR BUTTON -->
+
+                <!-- BOARD BUTTON -->
+                <md-button class="md-icon-button"
+                           ui-sref="app.scrumboard.boards.board"
+                           ng-hide="'app.scrumboard.boards.board' | isState"
+                           aria-label="Board">
+                    <md-icon md-font-icon="icon-map"></md-icon>
+                    <md-tooltip>Nouveau Fichier</md-tooltip>
+                </md-button>
+                <!-- / BOARD BUTTON -->
+
+                <!-- FILTERS SIDENAV BUTTON -->
+                <md-button class="md-icon-button"
+                           ng-click="vm.toggleSidenav('filters-sidenav')"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-filter-variant"></md-icon>
+                    <md-tooltip><span>Filter des Fichiers</span></md-tooltip>
+                </md-button>
+                <!-- / FILTERS SIDENAV BUTTON -->
+            </div>
+            <!-- / TOOLBAR -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT -->
+        <div class="content" exec-on-scroll-to-bottom="ctrl.handleScrollToBottom">
+
+            <md-tabs md-dynamic-height>
+
+                <md-tab label="Tous Les Fichiers">
+
+         <div class="widget-group" layout="row" flex="100" layout-wrap>
+                         <!-- WIDGET 2 -->
+            <!-- WIDGET 2 -->
+            <ms-widget ng-repeat="file in vm.allfiles track by file.id" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 blue-400-bg white-fg">
+                    <div class="pb-12" layout="row" layout-align="space-between center">
+                        <div layout="row" layout-align="start center">
+                            <md-icon class="m-0 mr-8" md-font-icon="icon-file"></md-icon>
+                            <div class="h3">{{file.category.name}}</div>
+                        </div>
+                            <md-button aria-label="more" class="md-icon-button"
+                                       ng-click="vm.downloadfile(file)">
+                                <md-icon md-font-icon="icon-download"></md-icon>
+                                <md-tooltip md-direction="top">télécharger : {{file.name}}</md-tooltip>
+                            </md-button>
+                    </div>
+
+                    <div class="pb-24 pl-50" layout="row" layout-align="start center">
+                        <div class="h2">{{file.name}}</div>
+                    </div>
+
+                    <md-progress-linear md-mode="determinate"
+                                        value="100"></md-progress-linear>
+                    <div class="p-5 grey-02-bg" layout="row" layout-align="start center">
+                        <span class="h4 secondary-text text-truncate">
+                        <md-icon md-font-icon="icon-account">
+                        </md-icon> {{file.user.firstname +",  "+ file.user.lastname}}
+                        </span>
+                        <span class="h4 ml-8"></span>
+                        <md-button class="md-icon-button" data-ng-click="vm.PreviewLayer($event,file)">
+                        <md-icon md-font-icon="icon-presentation"></md-icon>
+                        <md-tooltip md-direction="top">details : {{file.name}}</md-tooltip>
+                    </md-button>
+                    </div>
+
+
+                </ms-widget-front>
+                <!-- / Front -->
+            </ms-widget>
+            <!-- / WIDGET 2 -->
+
+
+        </div>
+<!-- / WIDGET GROUP -->
+
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular ng-disabled="!vm.load_activated" md-mode="indeterminate"></md-progress-circular>
+                            </div>
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-button class="md-primary md-raised center" ng-click="load_more()" aria-label="load more">
+                            <md-tooltip md-direction="top">Charger plus ...</md-tooltip>
+                            <md-icon md-font-icon="icon-reload md-accent-fg md-hue-3"></md-icon>
+                            </md-button>
+                            </div>
+
+                </md-tab>
+
+               <!-- Rechercher -->
+                <md-tab label="Rechercher">
+
+                <ms-search-bar on-search="vm.search(query)" on-result-click="vm.searchResultClick(item)"
+                                           debounce="300"></ms-search-bar>
+
+                             <div class="widget-group" layout="row" flex="100" layout-wrap>
+                         <!-- WIDGET 2 -->
+            <!-- WIDGET 2 -->
+                     <div class="widget-group" layout="row" flex="100" layout-wrap>
+                         <!-- WIDGET 2 -->
+            <!-- WIDGET 2 -->
+            <ms-widget ng-repeat="file in vm.searchfiles track by file.id" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 blue-400-bg white-fg">
+                    <div class="pb-12" layout="row" layout-align="space-between center">
+                        <div layout="row" layout-align="start center">
+                            <md-icon class="m-0 mr-8" md-font-icon="icon-file"></md-icon>
+                            <div class="h3">{{file.category.name}}</div>
+                        </div>
+                            <md-button aria-label="more" class="md-icon-button"
+                                       ng-click="vm.downloadfile(file)">
+                                <md-icon md-font-icon="icon-download"></md-icon>
+                                <md-tooltip md-direction="top">télécharger : {{file.name}}</md-tooltip>
+                            </md-button>
+                    </div>
+
+                    <div class="pb-24 pl-50" layout="row" layout-align="start center">
+                        <div class="h2">{{file.name}}</div>
+                    </div>
+
+                    <md-progress-linear md-mode="determinate"
+                                        value="100"></md-progress-linear>
+                    <div class="p-5 grey-02-bg" layout="row" layout-align="start center">
+                        <span class="h4 secondary-text text-truncate">
+                        <md-icon md-font-icon="icon-account">
+                        </md-icon> {{file.user.firstname +",  "+ file.user.lastname}}
+                        </span>
+                        <span class="h4 ml-8"></span>
+                        <md-button class="md-icon-button" data-ng-click="vm.PreviewLayer($event,file)">
+                        <md-icon md-font-icon="icon-presentation"></md-icon>
+                        <md-tooltip md-direction="top">details : {{file.name}}</md-tooltip>
+                    </md-button>
+                    </div>
+
+
+                </ms-widget-front>
+                <!-- / Front -->
+
+            </ms-widget>
+                        <ms-widget ng-hide="vm.searchfiles" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25" layout-align="center" >
+
+                <!-- Front -->
+                <ms-widget-front class="p-16 blue-400-bg white-fg " >
+                    <div class="pb-12" layout="row" >
+
+                    </div>
+
+                    <md-progress-linear md-mode="determinate"
+                                        value="100"></md-progress-linear>
+
+
+                </ms-widget-front>
+                <!-- / Front -->
+            </ms-widget>
+            <!-- / WIDGET 2 -->
+            </div>
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular ng-disabled="!vm.load_activated" md-mode="indeterminate"></md-progress-circular>
+                            </div>
+                            <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-button class="md-primary md-raised center" ng-click="load_more_search()" aria-label="load more">
+                            <md-tooltip md-direction="top">Charger plus ...</md-tooltip>
+                            <md-icon md-font-icon="icon-reload md-hue-10"></md-icon>
+                            </md-button>
+                            </div>
+                </md-tab>
+                <!--/ Rechercher -->
+
+            </md-tabs>
+
+        </div>
+        <!-- / CONTENT -->
+
+    </div>
+    <!-- / CENTER -->
+
+    <!-- FILTERS SIDENAV -->
+
+
+    <md-sidenav class="filters-sidenav md-sidenav-right" md-component-id="filters-sidenav">
+                <!-- SIDENAV HEADER -->
+<md-toolbar class="md-accent" ng-class="'md-accent-bg'">
+    <div class="md-toolbar-tools">
+        <span flex class="menu-title">Filters</span>
+        <md-button ng-if="true" ng-click="vm.clarfilter()" class="md-icon-button"
+                   aria-label="clear filters">
+            <md-icon md-font-icon="icon-filter-remove"></md-icon>
+            <md-tooltip>
+                <span >Annuler le filtre</span>
+            </md-tooltip>
+        </md-button>
+    </div>
+</md-toolbar>
+<!-- / SIDENAV HEADER -->
+
+<!-- CONTENT -->
+<md-content class="" ms-scroll>
+    <md-list>
+        <md-list-item class="label"
+                      ng-click="vm.filterbyuser(1)">
+            <md-icon md-font-icon="icon-layers" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>Toutes les Fichiers</p>
+            <i class="icon-check s16" ng-if="vm.selected_user==0 "></i>
+        </md-list-item>
+        <md-list-item class="label"
+                      ng-click="vm.filterbyuser(0)">
+            <md-icon md-font-icon="icon-people" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>Mes Couches</p>
+            <i class="icon-check s16" ng-if="vm.selected_user==userid"></i>
+        </md-list-item>
+
+        <md-divider></md-divider>
+            <!-- FILTER BY Date -->
+        <md-subheader class="md-no-sticky">Filter par date de publication</md-subheader>
+
+        <md-list-item class="label" ng-click="vm.filterbydate('desc')">
+            <md-icon md-font-icon="icon-sort" ng-class="md-accent-fg" class="label-icon"></md-icon>
+            <p>récents </p>
+            <i class="icon-check s16" ng-if="vm.filterbydatevalue == 'desc'"></i>
+        </md-list-item>
+
+        <md-list-item class="label" ng-click="vm.filterbydate('asc')">
+            <md-icon md-font-icon="icon-sort" ng-class="" class="label-icon"></md-icon>
+            <p>anciens</p>
+            <i class="icon-check s16" ng-if="vm.filterbydatevalue == 'asc'"></i>
+        </md-list-item>
+        <!-- / FILTER BY Date -->
+
+        <md-divider></md-divider>
+
+        <!-- FILTER BY Type -->
+        <md-subheader class="md-no-sticky">Filter par Type</md-subheader>
+        <md-list-item class="label" 
+                      ng-click="vm.filterbytype('PDF')">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>PDF</p>
+            <i class="icon-check s16" ng-if="category.id == vm.selected_category"></i>
+        </md-list-item>
+        <md-list-item class="label" 
+                      ng-click="vm.filterbytype('CSV')">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>CSV</p>
+            <i class="icon-check s16" ng-if="category.id == vm.selected_category"></i>
+        </md-list-item>
+        <md-list-item class="label" 
+                      ng-click="vm.filterbytype('EXCEL')">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>EXCEL</p>
+            <i class="icon-check s16" ng-if="category.id == vm.selected_category"></i>
+        </md-list-item>
+        <md-list-item class="label" 
+                      ng-click="vm.filterbytype('ZIP')">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>ZIP</p>
+            <i class="icon-check s16" ng-if="category.id == vm.selected_category"></i>
+        </md-list-item>
+        <md-list-item class="label" 
+                      ng-click="vm.filterbytype('WORD')">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>WORD</p>
+            <i class="icon-check s16" ng-if="category.id == vm.selected_category"></i>
+        </md-list-item>
+        <md-list-item class="label" 
+                      ng-click="vm.filterbytype('GEODATABASE')">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>GEODATABASE</p>
+            <i class="icon-check s16" ng-if="category.id == vm.selected_category"></i>
+        </md-list-item>
+        <md-list-item class="label" 
+                      ng-click="vm.filterbytype('AUTRES')">
+            <md-icon md-font-icon="icon-label" ng-class="label.color-fg" class="label-icon"></md-icon>
+            <p>AUTRES</p>
+            <i class="icon-check s16" ng-if="category.id == vm.selected_category"></i>
+        </md-list-item>
+        <!-- / FILTER BY Type -->
+    </md-list>
+</md-content>
+<!-- / CONTENT -->
+    </md-sidenav>
+    <!-- / FILTERS SIDENAV -->
+
+</div>

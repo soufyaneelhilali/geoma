@@ -1,0 +1,27 @@
+{
+    "REGISTER_V2": {
+        "INTRO_TITLE": "Bienvenue a GEOMA",
+        "INTRO_DESCRIPTION": "La platforme qui vous offres un espace de travaille SIG",
+        "TITLE": "Créer un compte",
+        "DESCRIPTION": "Le premier pas c'est de créer un compte!",
+        "USERLOGIN": "Login",
+        "EMAIL": "Email",
+        "PASSWORD": "Mot de passe",
+        "USERFIRSTNAME" : "Nom",
+        "PASSWORD_CONFIRM": "Confirmation",
+        "READ_ACCEPT": "J'ai lu et accepté",
+        "TERMS_COND": "Termes et conditions",
+        "CREATE_ACCOUNT": "CRÉER MON COMPTE",
+        "ALREADY_HAVE": "Vous avez déjà un compte?",
+        "LOGIN": "S'identifier",
+        "ERRORS": {
+            "USERNAME_REQUIRED": "Le champ Nom d'utilisateur est requis",
+            "USERLOGIN_REQUIRED": "Le champ login est requis",
+            "EMAIL_REQUIRED": "Le champ de l'email est requis",
+            "EMAIL_MUST_VALID": "Le courrier électronique doit être une adresse e-mail valide",
+            "PASSWORD_REQUIRED": "Le champ du mot de passe est requis",
+            "PASSWORD_CONFIRM_REQUIRED": "Le champ de confirmation du mot de passe est requis",
+            "TERMS_REQUIRED": "Vous devez accepter les termes et conditions avant de soumettre le formulaire"
+        }
+    }
+}

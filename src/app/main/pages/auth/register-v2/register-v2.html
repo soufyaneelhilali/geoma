@@ -1,0 +1,110 @@
+<div id="register-v2" layout="row" layout-align="start">
+    <div id="register-v2-intro" flex hide show-gt-sm>
+    <div class="logo md-accent-bg icon-google-earth">
+        </div>
+        <div class="title" translate="REGISTER_V2.INTRO_TITLE">
+            Bienvenue a GEOMA!
+        </div>
+        <div class="description" translate="REGISTER_V2.INTRO_DESCRIPTION">
+            La platforme qui vous offres un espace de travaille SIG.
+        </div>
+    </div>
+
+    <div id="register-v2-form-wrapper" class="flex-scrollable md-whiteframe-8dp" layout="column" flex ms-scroll>
+        <div id="register-v2-form">
+            <div class="logo md-accent-bg icon-google-earth" hide-gt-sm>
+            </div>
+
+            <div class="title" translate="REGISTER_V2.TITLE">Créer un compte</div>
+            <div class="description" translate="REGISTER_V2.DESCRIPTION">Le premier pas c'est de créer un compte!
+            </div>
+            <form name="registerForm" novalidate>
+                <md-input-container class="md-block" md-no-float>
+                    <input name="login" ng-model="vm.user.login" placeholder="Login"
+                           translate translate-attr-placeholder="REGISTER_V2.USERLOGIN"
+                           required>
+                    <div ng-messages="registerForm.login.$error" role="alert">
+                        <div ng-message="required">
+                            <span translate="REGISTER_V2.ERRORS.USERLOGIN_REQUIRED">Le champ login est requis</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input name="firstname" ng-model="vm.user.firstname" placeholder="Nom"
+                           translate translate-attr-placeholder="REGISTER_V2.USERFIRSTNAME"
+                           required>
+                    <div ng-messages="registerForm.firstname.$error" role="alert">
+                        <div ng-message="required">
+                            <span translate="REGISTER_V2.ERRORS.USERNAME_REQUIRED">Le champ login est requis</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="email" name="email" ng-model="vm.user.email" placeholder="Email"
+                           translate translate-attr-placeholder="REGISTER_V2.EMAIL"
+                           ng-pattern="/^.+@.+\..+$/" required>
+                    <div ng-messages="registerForm.email.$error" role="alert" multiple>
+                        <div ng-message="required">
+                            <span translate="REGISTER_V2.ERRORS.EMAIL_REQUIRED">Le champ de l'email est requis</span>
+                        </div>
+                        <div ng-message="pattern">
+                            <span translate="REGISTER_V2.ERRORS.EMAIL_MUST_VALID">Le courrier électronique doit être une adresse e-mail valide</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="password" name="password" ng-model="vm.user.password" placeholder="Mot de passe"
+                           translate translate-attr-placeholder="REGISTER_V2.PASSWORD"
+                           required>
+                    <div ng-messages="registerForm.password.$error" role="alert">
+                        <div ng-message="required">
+                            <span translate="REGISTER_V2.ERRORS.PASSWORD_REQUIRED">Le champ du mot de passe est requis</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="password" name="passwordConfirm" ng-model="vm.user.passwordConfirm"
+                           placeholder="Password (Confirm)"
+                           translate translate-attr-placeholder="REGISTER_V2.PASSWORD_CONFIRM"
+                           required>
+                    <div ng-messages="registerForm.passwordConfirm.$error" role="alert">
+                        <div ng-message="required">
+                            <span translate="REGISTER_V2.ERRORS.PASSWORD_CONFIRM_REQUIRED">Le champ de confirmation du mot de passe est requis</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <div class="terms" layout="row" layout-align="center center">
+                    <md-checkbox name="terms" ng-model="data.cb1" aria-label="J'ai lu et accepté" required></md-checkbox>
+                    <div layout="row" layout-sm="column" layout-align="start center">
+                        <span translate="REGISTER_V2.READ_ACCEPT">I Vous devez accepter les termes et conditions avant de soumettre le formulaire</span>
+                        <a href="#" class="md-accent-color" translate="REGISTER_V2.TERMS_COND">termes et conditions</a>
+                    </div>
+                </div>
+
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                  <md-progress-circular ng-disabled="!vm.enableprogress" md-mode="indeterminate"></md-progress-circular>
+                </div>
+
+                <md-button type="submit" class="md-raised md-accent" aria-label="CRÉER MON COMPTE"
+                        layout-align="center"
+                       ng-disabled="registerForm.$invalid || registerForm.$pristine"
+                       ng-click="Register(vm)"
+                       translate="REGISTER_V2.CREATE_ACCOUNT"
+                       translate-attr-aria-label="REGISTER_V2.CREATE_ACCOUNT">
+                               CRÉER MON COMPTE
+                </md-button>
+
+            </form>
+
+            <div class="login" layout="row" layout-sm="column" layout-align="center center">
+                <span class="text" translate="REGISTER_V2.ALREADY_HAVE">Vous avez déjà un compte?</span>
+                <a class="link" ui-sref="app.pages_auth_login-v2" translate="REGISTER_V2.LOGIN">S'identifier</a>
+            </div>
+        </div>
+    </div>
+</div>

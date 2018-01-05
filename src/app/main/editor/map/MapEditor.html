@@ -1,0 +1,221 @@
+<div id="MapEditor" class="page-layout simple fullwidth" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" ng-class="'md-'+vm.board.settings.color+'-bg'" layout="column">
+
+        <div class="header-content" layout="row" layout-align="space-between" layout-wrap flex>
+
+            <!-- BOARD SELECTION BUTTON -->
+            <div layout="row" layout-align="center center" flex-order="1" flex-order-xs="2">
+                <md-button class="md-accent md-raised md-hue-2 header-boards-button"
+                           ng-class="'md-'+vm.board.settings.color+'-700-bg'"
+                           ng-click="vm.boardSelectorVisible = !vm.boardSelectorVisible"
+                           aria-label="boards button" translate translate-attr-aria-label="SB.BOARDS_BUTTON">
+                    <md-icon md-font-icon="icon-wallet" class="icon"></md-icon>
+                    <span>Options</span>
+
+                </md-button>
+            </div>
+            <!-- / BOARD SELECTION BUTTON -->
+
+            <!-- MAP NAME -->
+            <div class="header-board-name" layout="row" layout-align="center center" flex-order="2" flex-order-xs="1"
+                 flex-xs="100">
+                <i class="board-subscribe s32 icon-map"></i>
+                <span>Carte : {{vm.map.name}}</span>
+            </div>
+            <!-- / MAP NAME -->
+
+            <!-- TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" flex-order="3">
+
+                <!-- BOARD BUTTON -->
+                <md-button class="md-icon-button"
+                           ng-click = "vm.createMap()"
+                           aria-label="Board">
+                    <md-icon md-font-icon="icon-map" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip>Nouvelle Carte</md-tooltip>
+                </md-button>
+                <!-- / BOARD BUTTON -->
+
+                <!-- FILTERS SIDENAV BUTTON -->
+                <md-button class="md-icon-button"
+                           ng-click="vm.toggleSidenav('filters-sidenav')"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-layers" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>Couches</span></md-tooltip>
+                </md-button>
+
+                <md-button class="md-icon-button"
+                           ng-click="vm.toggleSidenav('legend-sidenav')"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-dns" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>legend</span></md-tooltip>
+                </md-button>
+                <!-- / FILTERS SIDENAV BUTTON -->
+            </div>
+            <!-- / TOOLBAR -->
+
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- BOARD SELECTION -->
+    <div ng-show="vm.boardSelectorVisible"
+         id="board-selector"
+         class="md-accent-bg animate-slide-down board-list md-whiteframe-3dp"
+         layout="row" layout-align="start center">
+
+	        <div class="board-list-item" 
+	             layout="column" layout-align="space-between center">
+                <md-button class="board-icon white"
+                           ng-click="vm.print_map()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-printer s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>Imprimer cette carte</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Imprimer</div>
+	        </div>
+
+            <div class="board-list-item" 
+                 layout="column" layout-align="space-between center">
+                <md-button class="board-icon white"
+                           ng-click="vm.edit_map()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-tooltip-edit s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>Modifier cette carte</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Modifier </div>
+            </div>
+
+            <div class="board-list-item" 
+                 layout="column" layout-align="space-between center">
+                <md-button class="board-icon white"
+                           ng-click="vm.refresh_map()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-refresh s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>Actualiser cette carte</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Actualiser </div>
+            </div>
+
+            <div class="board-list-item" 
+                 layout="column" layout-align="space-between center">
+                <md-button class="board-icon white"
+                           ng-click="vm.add_layers()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-library-plus s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>Ajouter une couche a cette carte</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Ajouter une Couche </div>
+            </div>
+            
+            <div ng-if="!vm.map.share" class="board-list-item" 
+                 layout="column" layout-align="space-between center" >
+                <md-button class="board-icon white"
+                           ng-click="vm.share_map()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-share s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>partager cette carte</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Partager</div>
+            </div>
+            <div class="board-list-item" 
+                 layout="column" layout-align="space-between center" >
+                <md-button class="board-icon white"
+                           ng-click="vm.remove_map()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-delete s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>Supprimer cette carte</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Supprimer</div>
+            </div>
+            <div class="board-list-item" 
+                 layout="column" layout-align="space-between center" >
+                <md-button class="board-icon white"
+                           ng-click="vm.upload_layer()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-import s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>importer des données</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Importer</div>
+            </div>
+
+            <div class="board-list-item" 
+                 layout="column" layout-align="space-between center" >
+                <md-button class="board-icon white"
+                           ng-click="vm.new_map()"
+                           aria-label="Filter maps">
+                    <md-icon md-font-icon="icon-map s64" ng-style="{color:'white'}"></md-icon>
+                    <md-tooltip><span>Créer une nouvelle carte</span></md-tooltip>
+                </md-button>
+                <div flex class="board-name">Nouvelle carte</div>
+            </div>
+
+    </div>
+
+    <md-backdrop class="board-selector-backdrop md-dialog-backdrop md-opaque" ng-show="vm.boardSelectorVisible"
+                 ng-click="vm.boardSelectorVisible = false" aria-hidden="true">
+    </md-backdrop>
+    <!-- / BOARD SELECTION -->
+
+    <!-- CONTENT -->
+    <md-content class="content" flex layout="column" ui-view="scrumboardContent">
+             <leaflet defaults="defaults" center="center" controls="controls" width="100%" height="600px" map="map" layers="layers"></leaflet>
+    </md-content>
+    <!-- / CONTENT -->
+    <md-sidenav class="filters-sidenav md-sidenav-right"s md-component-id="filters-sidenav" ms-scroll>
+	        <!-- SIDENAV HEADER -->
+		<md-toolbar class="md-accent" ng-class="'md-accent-bg'">
+		    <div class="md-toolbar-tools">
+		        <span flex class="menu-title">Couches</span>
+		        <md-button ng-if="true" ng-click="vm.toggleSidenav('filters-sidenav')" class="md-icon-button"
+		                   aria-label="close layers">
+		            <md-icon md-font-icon="icon-close"></md-icon>
+		            <md-tooltip>
+		                <span >Annuler le filtre</span>
+		            </md-tooltip>
+		        </md-button>
+		    </div>
+		</md-toolbar>
+		<!-- / SIDENAV HEADER -->
+
+		<!-- CONTENT -->
+
+			<!-- Todo list pane -->
+			<md-content class="todo-list-pane" flex
+			            ng-include="'app/main/editor/map/views/list/list-view.html'">
+			</md-content>
+			<!-- / Todo list pane -->
+    </md-sidenav>
+    <!-- / FILTERS SIDENAV -->
+
+        <md-sidenav class="filters-sidenav md-sidenav-right" md-component-id="legend-sidenav" ms-scroll>
+            <!-- SIDENAV HEADER -->
+        <md-toolbar class="md-accent" ng-class="'md-accent-bg'">
+            <div class="md-toolbar-tools">
+                <span flex class="menu-title">Legend</span>
+                <md-button ng-if="true" ng-click="vm.toggleSidenav('legend-sidenav')" class="md-icon-button"
+                           aria-label="close legend">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                    <md-tooltip>
+                        <span >Fremer legend</span>
+                    </md-tooltip>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <!-- / SIDENAV HEADER -->
+
+        <!-- CONTENT -->
+
+            <!-- Todo list pane -->
+            <md-content class="todo-list-pane" flex
+                        ng-include="'app/main/editor/map/views/legend/legend.html'">
+            </md-content>
+            <!-- / Todo list pane -->
+    </md-sidenav>
+    <!-- / FILTERS SIDENAV -->
+
+</div>
+

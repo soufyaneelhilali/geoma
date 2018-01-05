@@ -1,0 +1,95 @@
+<div id="create" class="page-layout simple fullwidth doc-page" layout="column">
+
+ <!-- WIDGETS -->
+    <div id="widgets">
+
+        <!-- WIDGET GROUP -->
+        <div class="widget-group" layout="row" flex="100" layout-wrap>
+
+            <!-- WIDGET 1 -->
+            <ms-widget flippable="false" layout="row" flex="100" flex-gt-md="100">
+
+                <!-- Front -->
+                <ms-widget-front class="white-bg">
+
+                    <div class="ph-16 pv-24 border-bottom" layout="row" layout-align="space-between center">
+
+                    </div>
+
+                    <table datatable="ng" class="row-border hover"
+                           dt-options="dtlayersoption.dtOptions">
+                        <thead>
+                            <tr>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Nom</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Category</span>
+                                    </div>
+                                </th>
+                                 <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Description</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Utilisateur</span>
+                                    </div>
+                                </th>
+                                <th class="secondary-text">
+                                    <div class="table-header">
+                                        <span class="column-title">Ajouter</span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="layer in layers">
+
+                                <td>
+                                    <span class="">
+                                        {{layer.name}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                        {{layer.category.name}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                    {{layer.description}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                    {{layer.user.firstname}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="">
+                                    <md-button class="md-icon-button" ng-click="addlayertomap($event,layer)"
+                                        aria-label="more">
+                                        <md-tooltip md-direction="top">Ajouter</md-tooltip>
+                                        <md-icon md-font-icon="icon-plus-circle blue-fg""></md-icon>
+                                    </md-button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </ms-widget-front>
+                <!-- / Front -->
+
+            </ms-widget>
+            <!-- / WIDGET 1 -->
+
+        </div>
+        <!-- / WIDGET GROUP -->
+    </div>
+</div>
